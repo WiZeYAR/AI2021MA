@@ -1,19 +1,42 @@
 import numpy as np
 from typing import List
+from scipy.sparse import csr_matrix
 from matplotlib import pyplot as plt
 from numpy.core._multiarray_umath import ndarray
+from scipy.sparse.csgraph import minimum_spanning_tree
 
 
-class Instance:
+class modality_creator:
+    random = "random"
+    standard = "standard"
+
+
+class TSP_Instance_Creator:
     nPoints: int
     best_sol: int
     name: str
     lines: List[str]
     dist_matrix: ndarray
     points: ndarray
+    problems: ['fl1577.tsp','pr439.tsp','ch130.tsp','rat783.tsp',
+               'd198.tsp', 'kroA100.tsp','u1060.tsp','lin318.tsp',
+               'eil76.tsp','pcb442.tsp']
 
-    def __init__(self, name_tsp):
-        self.read_instance(name_tsp)
+    def __init__(self, mode, seed=1, dimension=False, name_problem=False):
+        if mode == 'random':
+            self.seed = seed
+            np.random.seed(self.seed)
+            self.random_2D_instance(dimension=dimension)
+            self.print_best = f'LB_sol: {self.LB}'
+
+        elif mode == "standard":
+            if not name_problem:
+                name_problem = np.random.choice(self.problems)
+            self.read_instance(name_problem)
+            self.print_best = f'best_sol: {self.best_sol}'
+
+
+
 
     def read_instance(self, name_tsp):
         # read raw data
@@ -53,7 +76,7 @@ class Instance:
     def print_info(self):
         print('name: ' + self.name)
         print('nPoints: ' + str(self.nPoints))
-        print('best_sol: ' + str(self.best_sol))
+        print(self.print_best)
 
     def plot_data(self):
         plt.figure(figsize=(8, 8))
@@ -71,9 +94,38 @@ class Instance:
 
     def create_dist_matrix(self):
         self.dist_matrix = np.zeros((self.nPoints, self.nPoints))
-
         for i in range(self.nPoints):
             for j in range(i, self.nPoints):
                 self.dist_matrix[i, j] = self.distance_euc(self.points[i][1:3], self.points[j][1:3])
         self.dist_matrix += self.dist_matrix.T
 
+    def random_2D_instance(self, dimension=False):
+        self.name = f"random {self.seed}"
+        if not dimension:
+            dimension = np.random.randint(100, 300)
+        self.nPoints = dimension
+        self.points = np.zeros((self.nPoints, 3))
+        for i in range(self.nPoints):
+            a, b = np.random.uniform(0, 100, size=2)
+            self.points[i, 0] = i
+            self.points[i, 1] = a
+            self.points[i, 2] = b
+
+        self.create_dist_matrix()
+        self.exist_opt = False
+        self.LB = np.sum(create_MST(self.dist_matrix))
+        return
+
+
+
+def create_MST(dist_tensor):
+    """
+
+    @param dist_tensor:
+    @return:
+    """
+    X = csr_matrix(dist_tensor)
+    Tcsr = minimum_spanning_tree(X)
+    mst = Tcsr.toarray()
+    # mst += np.transpose(mst)
+    return mst
