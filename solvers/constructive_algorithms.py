@@ -1,6 +1,4 @@
 import numpy as np
-from tools import import_methods
-import_methods()
 
 class random_initialier:
     @staticmethod

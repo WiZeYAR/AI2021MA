@@ -1,3 +1,4 @@
+import os
 import numpy as np
 from typing import List
 from scipy.sparse import csr_matrix
@@ -36,7 +37,10 @@ class TSP_Instance_Creator:
 
     def read_instance(self, name_tsp):
         # read raw data
-        file_object = open(name_tsp)
+        folder = "problems/TSP/"
+        if "AI" not in os.getcwd():
+            folder = "AI2020/problems/TSP/"
+        file_object = open(f"{folder}{name_tsp}")
         data = file_object.read()
         file_object.close()
         self.lines = data.splitlines()
