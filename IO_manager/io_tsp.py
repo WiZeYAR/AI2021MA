@@ -6,8 +6,6 @@ from numpy.core._multiarray_umath import ndarray
 from scipy.sparse.csgraph import minimum_spanning_tree
 
 
-
-
 class TSP_Instance_Creator:
     nPoints: int
     best_sol: int
@@ -15,12 +13,12 @@ class TSP_Instance_Creator:
     lines: List[str]
     dist_matrix: ndarray
     points: ndarray
-    problems = ['fl1577.tsp','pr439.tsp','ch130.tsp','rat783.tsp',
-               'd198.tsp', 'kroA100.tsp','u1060.tsp','lin318.tsp',
-               'eil76.tsp','pcb442.tsp']
-
 
     def __init__(self, mode, seed=1, dimension=False, name_problem=False):
+        self.problems = ['fl1577.tsp','pr439.tsp','ch130.tsp','rat783.tsp',
+                         'd198.tsp', 'kroA100.tsp','u1060.tsp','lin318.tsp',
+                         'eil76.tsp','pcb442.tsp']
+
         if mode == 'random':
             self.seed = seed
             np.random.seed(self.seed)
