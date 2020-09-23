@@ -2,17 +2,17 @@ import numpy as np
 
 class random_initialier:
     @staticmethod
-    def random_method(instance_):
-        n = int(instance_.nPoints)
+    def random_method(dist_matrix):
+        n = int(dist_matrix.shape[0])
         solution = np.random.choice(np.arange(n), size=n, replace=False)
         return np.concatenate([solution, [solution[0]]])
 
 
 class nearest_neighbor:
     @staticmethod
-    def nn(instance_, starting_node=0):
-        dist_matrix = np.copy(instance_.dist_matrix)
-        n = int(instance_.nPoints)
+    def nn(dist_matrix, starting_node=0):
+        dist_matrix = np.copy(dist_matrix)
+        n = int(dist_matrix.shape[0])
         node = starting_node
         tour = [node]
         for _ in range(n - 1):
@@ -25,12 +25,12 @@ class nearest_neighbor:
         return np.array(tour)
 
     @staticmethod
-    def best_nn(instance_):
+    def best_nn(dist_matrix):
         solutions, lens = [], []
-        for start in range(instance_.nPoints):
-            new_solution = nearest_neighbor.nn(instance_, starting_node=start)
+        for start in range(dist_matrix.shape[0]):
+            new_solution = nearest_neighbor.nn(dist_matrix, starting_node=start)
             solutions.append(new_solution)
-            lens.append(compute_lenght(new_solution, instance_.dist_matrix))
+            lens.append(compute_lenght(new_solution, dist_matrix))
 
         solution = solutions[np.argmin(lens)]
         return solution
@@ -103,15 +103,16 @@ class multi_fragment:
         return sol_list
 
     @staticmethod
-    def mf(instance):
-        mat = np.copy(instance.dist_matrix)
+    def mf(dist_matrix):
+        mat = np.copy(dist_matrix)
         mat = np.triu(mat)
         mat[mat == 0] = 100000
-        solution = {str(i): [] for i in range(instance.nPoints)}
-        start_list = [i for i in range(instance.nPoints)]
+        num_cit = dist_matrix.shape[0]
+        solution = {str(i): [] for i in range(num_cit)}
+        start_list = [i for i in range(num_cit)]
         inside = 0
         for el in np.argsort(mat.flatten()):
-            node1, node2 = el // instance.nPoints, el % instance.nPoints
+            node1, node2 = el // num_cit, el % num_cit
             possible_edge = [node1, node2]
             if multi_fragment.check_if_available(node1, node2,
                                                  solution):
@@ -125,9 +126,18 @@ class multi_fragment:
                         start_list.remove(node2)
                     inside += 1
                     # print(node1, node2, inside)
-                    if inside == instance.nPoints - 1:
+                    if inside == num_cit - 1:
                         # print(f"ricostruire la solutione da {start_list}",
                         #       f"vicini di questi due nodi {[solution[str(i)] for i in start_list]}")
-                        solution = multi_fragment.create_solution(start_list, solution, instance.nPoints)
+                        solution = multi_fragment.create_solution(start_list, solution, num_cit)
                         return solution
 
+
+def compute_lenght(solution, dist_matrix):
+    total_length = 0
+    starting_node = solution[0]
+    from_node = starting_node
+    for node in solution[1:]:
+        total_length += dist_matrix[from_node, node]
+        from_node = node
+    return total_length

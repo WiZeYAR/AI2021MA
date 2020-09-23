@@ -28,6 +28,7 @@ class Solver_TSP:
 
     def __init__(self, initializer):
         self.initializer = initializer[0]
+        self.methods_name = [initializer[0]]
         self.methods = [initializer[1]]
         self.name_method = "initialized with " + self.initializer
         self.solved = False
@@ -36,6 +37,7 @@ class Solver_TSP:
     def bind(self, local_or_meta):
         # assert local_or_meta in self.available_improvements, f"the {local_or_meta} method is not available currently."
         self.methods.append(local_or_meta[1])
+        self.methods_name.append(local_or_meta[0])
         self.name_method += ", improved with " + local_or_meta[0]
 
     def pop(self):
@@ -49,7 +51,7 @@ class Solver_TSP:
         if verbose:
             print(f"###  solving with {self.methods} ####")
         start = t()
-        self.solution = self.available_initializers[self.methods[0]](instance_)
+        self.solution = self.methods[0](instance_.dist_matrix)
         assert self.check_if_solution_is_valid(self.solution), "Error the solution is not valid"
         for i in range(1, len(self.methods)):
             self.solution = self.available_improvements[self.methods[i]](self.solution, self.instance)
