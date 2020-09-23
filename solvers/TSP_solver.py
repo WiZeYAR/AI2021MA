@@ -45,7 +45,7 @@ class Solver_TSP:
         self.name_method = self.name_method[::-1][self.name_method[::-1].find("improved"[::-1]) + len("improved") + 2:][
                            ::-1]
 
-    def __call__(self, instance_, verbose=True, return_value=True):
+    def __call__(self, instance_, verbose=False, return_value=False):
         self.instance = instance_
         self.solved = False
         if verbose:
