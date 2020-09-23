@@ -62,7 +62,7 @@ class TSP_Instance_Creator:
         self.exist_opt = False
         if [name for name in ["eil76", "kroA100"] if name in name_tsp]:
             self.exist_opt = True
-            file_object = open(name_tsp.replace(".tsp", ".opt.tour"))
+            file_object = open(f"{folder}{name_tsp.replace('.tsp', '.opt.tour')}")
             data = file_object.read()
             file_object.close()
             lines = data.splitlines()
