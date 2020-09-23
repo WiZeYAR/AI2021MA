@@ -1,4 +1,4 @@
-from src import *
+from IO_manager import *
 import pandas as pd
 
 
