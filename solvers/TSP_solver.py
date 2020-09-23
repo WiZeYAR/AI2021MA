@@ -4,9 +4,11 @@ from time import time as t
 import numpy as np
 import matplotlib.pyplot as plt
 if 'AI' in os.getcwd():
-    from src import *
+    from solvers.constructive_algorithms import *
+    from solvers.local_search import *
 else:
-    from AI2019.src import *
+    from AI2020.solvers.constructive_algorithms import *
+    from AI2020.solvers.local_search import *
 
 
 class Solver_TSP:
@@ -22,23 +24,19 @@ class Solver_TSP:
     available_improvements = {"2-opt": TwoOpt.loop2opt,
                               "2.5-opt": TwoDotFiveOpt.loop2dot5opt}
 
-    # ,
-    #   "simulated_annealing": Simulated_Annealing,
-    #   "iterated_local_search": Iterated_Local_Search}
+
 
     def __init__(self, initializer):
-        # self.available_methods = {"random": self.random_method, "nearest_neighbors": self.nn,
-        #                           "best_nn": self.best_nn, "multi_fragment": self.mf}
-        self.initializer = initializer
-        self.methods = [initializer]
-        self.name_method = "initialized with " + initializer
+        self.initializer = initializer[0]
+        self.methods = [initializer[1]]
+        self.name_method = "initialized with " + self.initializer
         self.solved = False
-        assert initializer in self.available_initializers, f"the {initializer} initializer is not available currently."
+        # assert self.initializer in self.available_initializers, f"the {initializer} initializer is not available currently."
 
     def bind(self, local_or_meta):
-        assert local_or_meta in self.available_improvements, f"the {local_or_meta} method is not available currently."
-        self.methods.append(local_or_meta)
-        self.name_method += ", improved with " + local_or_meta
+        # assert local_or_meta in self.available_improvements, f"the {local_or_meta} method is not available currently."
+        self.methods.append(local_or_meta[1])
+        self.name_method += ", improved with " + local_or_meta[0]
 
     def pop(self):
         self.methods.pop()
