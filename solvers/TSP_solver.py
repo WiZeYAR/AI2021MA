@@ -17,7 +17,7 @@ class Solver_TSP:
     found_length: float
     available_initializers = {"random": random_initialier.random_method,
                               "nearest_neighbors": nearest_neighbor.nn,
-                              "best_nn": nearest_neighbor.best_nn,
+                              # "best_nn": nearest_neighbor.best_nn,
                               "multi_fragment": multi_fragment.mf
                               }
 
