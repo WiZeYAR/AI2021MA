@@ -86,6 +86,21 @@ class TSP_Instance_Creator:
             plt.annotate(txt, (self.points[i, 1], self.points[i, 2]))
         plt.show()
 
+    def plot_solution(self):
+        assert self.name in ["eil76", "kroA100"], f"the solution is not available for {self.name}"
+        plt.figure(figsize=(8, 8))
+        plt.title(self.name)
+        plt.scatter(self.points[:, 1], self.points[:, 2])
+        for i, txt in enumerate(np.arange(self.nPoints)):  # tour_found[:-1]
+            plt.annotate(txt, (self.points[i, 1], self.points[i, 2]))
+
+        for i,j in zip(self.optimal_tour[:-1], self.optimal_tour[1:]):
+            plt.plot([self.points[i, 1], self.points[j, 1]],
+                     [self.points[i, 2], self.points[j, 2]], 'b-')
+        plt.plot([self.points[self.optimal_tour[0], 1], self.points[self.optimal_tour[-1], 1]],
+                 [self.points[self.optimal_tour[0], 2], self.points[self.optimal_tour[-1], 2]], 'b-')
+        plt.show()
+
     @staticmethod
     def distance_euc(zi, zj):
         xi, xj = zi[0], zj[0]
