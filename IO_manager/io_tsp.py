@@ -15,7 +15,7 @@ class TSP_Instance_Creator:
     dist_matrix: ndarray
     points: ndarray
 
-    def __init__(self, mode, seed=1, dimension=False, name_problem=False):
+    def __init__(self, mode, name_problem=False, seed=1, dimension=False):
         self.problems = ['fl1577.tsp','pr439.tsp','ch130.tsp','rat783.tsp',
                          'd198.tsp', 'kroA100.tsp','u1060.tsp','lin318.tsp',
                          'eil76.tsp','pcb442.tsp']
