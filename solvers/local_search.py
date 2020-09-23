@@ -33,8 +33,7 @@ class TwoOpt:
         return - old_link_len + changed_links_len
 
     @staticmethod
-    def loop2opt(solution, instance, max_num_of_uncrosses=10000):
-        matrix_dist = instance.dist_matrix
+    def loop2opt(solution, matrix_dist, max_num_of_uncrosses=10000):
         new_len = compute_lenght(solution, matrix_dist)
         new_tsp_sequence = np.copy(np.array(solution))
         uncross = 0
