@@ -9,8 +9,10 @@ def run_trial_TSP():
     print(ic.dist_matrix)
 
 def run_trial_KP():
-    ic = KP_Instance_Creator("random")
-    print(distributions)
+    i = 2
+    print(distributions[i])
+    ic = KP_Instance_Creator(distributions[i])
+
 
 if __name__ == '__main__':
     run_trial_KP()
