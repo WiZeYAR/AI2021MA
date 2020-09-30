@@ -1,7 +1,7 @@
 import os
 import numpy as np
 from numpy.core._multiarray_umath import ndarray
-
+import matplotlib.pyplot as plt
 
 distributions = [ "uncorrelated",
                   "weakly_correlated",
@@ -59,7 +59,13 @@ class KP_Instance_Creator:
         self.max_cost = np.cast(np.mean(self.volume_items) * num_items_prob, np.int)
 
     def plot_data_scatter(self):
-        pass
+        plt.figure(figsize=(8, 8))
+        plt.title(self.distribution)
+        plt.scatter(self.profit_items, self.volume_items)
+        # for i in range(self.nItems):  # tour_found[:-1]
+        #     plt.annotate(i, (self.profit_items[i], self.volume_items[i]))
+
+        plt.show()
 
     def plot_data_distribution(self):
         pass
