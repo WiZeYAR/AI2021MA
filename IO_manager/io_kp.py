@@ -2,25 +2,29 @@ import os
 import numpy as np
 from numpy.core._multiarray_umath import ndarray
 
+
+distributions = [ "uncorrelated",
+                  "weakly_correlated",
+                  "strongly_correlated",
+                  "inverse_strongly_correlated",
+                  "subset_sum",
+                  "multiple_strongly_correlated",
+                  "profit_ceiling",
+                  "circle"]
+
+
 class KP_Instance_Creator:
     nItems: int
     distribution: str
     capacity: int
     volume_items: ndarray
     profit_items: ndarray
-    existing_distributions = ["uncorrelated",
-                              "weakly_correlated",
-                              "strongly_correlated",
-                              "inverse_strongly_correlated",
-                              "subset_sum",
-                              "multiple_strongly_correlated",
-                              "profit_ceiling",
-                              "circle"]
+    existing_distributions = distributions
 
-    def __init__(self, mode, distribution=False, seed=1, dimension=50):
+    def __init__(self, mode, seed=1, dimension=50):
         self.seed_ = seed
         np.random.seed(self.seed_)
-        if mode == "my_random":
+        if mode == "random":
             self.my_random(dimension=dimension)
         else:
             self.read_data(mode)
@@ -41,7 +45,7 @@ class KP_Instance_Creator:
         self.volume_items = np.random.uniform(0, 200, dimension)
         self.profit_items = np.random.uniform(0, 200, dimension)
         num_items_prob = np.random.choice(np.arange(1, dimension//2), 1)
-        self.max_cost = np.mean(self.weights) * num_items_prob
+        self.max_cost = np.mean(self.volume_items) * num_items_prob
 
     def plot_data_scatter(self):
         pass
