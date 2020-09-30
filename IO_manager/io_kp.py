@@ -7,10 +7,10 @@ distributions = [ "uncorrelated",
                   "weakly_correlated",
                   "strongly_correlated",
                   "inverse_strongly_correlated",
-                  "subset_sum",
-                  "multiple_strongly_correlated",
-                  "profit_ceiling",
-                  "circle"]
+                  # "subset_sum",
+                  "multiple_strongly_correlated"]
+                  # "profit_ceiling",
+                  # "circle"]
 
 
 class KP_Instance_Creator:
@@ -54,9 +54,10 @@ class KP_Instance_Creator:
 
     def my_random(self, dimension=50):
         self.volume_items = np.random.uniform(0, 200, dimension).astype(np.int)
+        print(self.volume_items)
         self.profit_items = np.random.uniform(0, 200, dimension).astype(np.int)
-        num_items_prob = np.random.choice(np.arange(1, dimension//2), 1)
-        self.max_cost = np.cast(np.mean(self.volume_items) * num_items_prob, np.int)
+        num_items_prob = np.random.choice(np.arange(1, dimension//2), 1)[0]
+        self.capacity = int(np.mean(self.volume_items) * num_items_prob)
 
     def plot_data_scatter(self):
         plt.figure(figsize=(8, 8))
