@@ -45,12 +45,15 @@ class KP_Instance_Creator:
         self.nItems = int(lines[0])
         self.capacity = int(lines[1])
 
-        self.volume_items = np.zeros(self.nItems)
-        self.profit_items = np.zeros(self.nItems)
+        self.volume_items = np.zeros(self.nItems, np.int)
+        self.profit_items = np.zeros(self.nItems, np.int)
         for i in range(self.nItems):
             line_i = lines[3 + i].split(' ')
             self.profit_items[i] = int(line_i[0])
             self.volume_items[i] = int(line_i[1])
+        if name_type == "inverse_strongly_correlated":
+            max_profit = np.max(self.profit_items)
+            self.volume_items = max_profit - self.profit_items
 
     def my_random(self, dimension=50):
         self.volume_items = np.random.uniform(0, 200, dimension).astype(np.int)
