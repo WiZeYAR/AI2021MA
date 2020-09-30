@@ -33,11 +33,11 @@ class TwoOpt:
         return - old_link_len + changed_links_len
 
     @staticmethod
-    def loop2opt(solution, matrix_dist, max_num_of_uncrosses=10000):
+    def loop2opt(solution, matrix_dist):
         new_len = compute_lenght(solution, matrix_dist)
         new_tsp_sequence = np.copy(np.array(solution))
         uncross = 0
-        while uncross < max_num_of_uncrosses:
+        while True:
             new_tsp_sequence, new_reward, uncr_ = TwoOpt.step2opt(new_tsp_sequence, matrix_dist, new_len)
             uncross += uncr_
             if new_reward < new_len:
