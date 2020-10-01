@@ -93,7 +93,7 @@ class KP_Instance_Creator:
                                            centers = 3,
                                            cluster_std = 1.75,
                                            random_state = 42)
-        self.volume_items, self.profit_items = features[:,0], features[:,1]
+        self.volume_items, self.profit_items = np.array(features[:,0]), np.array(features[:,1])
         # self.volume_items, self.profit_items = np.random.multivariate_normal(mean, cov , dimension).astype(np.int).T
         num_items_prob = np.random.choice(np.arange(1, dimension//2), 1)[0]
         self.capacity = int(np.mean(self.volume_items) * num_items_prob)
