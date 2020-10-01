@@ -24,6 +24,7 @@ class KP_Instance_Creator:
     existing_distributions = distributions
 
     def __init__(self, mode, seed=1, dimension=50):
+        print(mode)
         self.seed_ = seed
         np.random.seed(self.seed_)
         if mode == "random":
@@ -85,8 +86,9 @@ class KP_Instance_Creator:
 
 
     def my_random(self, dimension=50):
-        self.volume_items = np.random.uniform(0, 200, dimension).astype(np.int)
-        self.profit_items = np.random.uniform(0, 200, dimension).astype(np.int)
+        mean = [300, 400]
+        cov = [[80, 20], [20, 130]]
+        self.volume_items,self.profit_items = np.random.multivariate_normal(mean, cov, dimension).astype(np.int)
         num_items_prob = np.random.choice(np.arange(1, dimension//2), 1)[0]
         self.capacity = int(np.mean(self.volume_items) * num_items_prob)
 
