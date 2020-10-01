@@ -39,6 +39,7 @@ class KP_Instance_Creator:
             folder = "AI2020/problems/KP/"
         files_distr = [file_ for file_ in os.listdir(folder) if name_type in file_]
         file_object = np.random.choice(files_distr, 1)[0]
+        print(f"{folder}{file_object}")
         file_object = open(f"{folder}{file_object}")
         data = file_object.read()
         file_object.close()
