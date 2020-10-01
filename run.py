@@ -16,10 +16,11 @@ def run_trial_KP():
     #     print(distributions[i])
     #     ic = KP_Instance_Creator(distributions[i])
     #     ic.plot_data_scatter()
-    i = 3
+    i = 7
     print(distributions[i])
     ic = KP_Instance_Creator(distributions[i])
     ic.plot_data_scatter()
+    ic.plot_data_distribution()
 
 
 
