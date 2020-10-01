@@ -9,11 +9,11 @@ def run_trial_TSP():
     print(ic.dist_matrix)
 
 def run_trial_KP():
-    print("random")
+    # print("random")
     ic = KP_Instance_Creator("random")
     ic.plot_data_scatter()
     for i in range(len(distributions)):
-        print(distributions[i])
+        # print(distributions[i])
         ic = KP_Instance_Creator(distributions[i])
         ic.plot_data_scatter()
     # i = 7

@@ -2,6 +2,7 @@ import os
 import numpy as np
 from numpy.core._multiarray_umath import ndarray
 import matplotlib.pyplot as plt
+from sklearn.datasets import make_blobs
 
 distributions = [ "uncorrelated",
                   "weakly_correlated",
@@ -39,9 +40,9 @@ class KP_Instance_Creator:
         if "AI" not in os.getcwd():
             folder = "AI2020/problems/KP/"
         files_distr = [file_ for file_ in os.listdir(folder) if name_type in file_]
-        print(files_distr)
+        # print(files_distr)
         file_object = np.random.choice(files_distr, 1)[0]
-        print(f"{folder}{file_object}")
+        # print(f"{folder}{file_object}")
         file_object = open(f"{folder}{file_object}")
         data = file_object.read()
         file_object.close()
@@ -87,8 +88,13 @@ class KP_Instance_Creator:
 
     def my_random(self, dimension=50):
         mean = [300, 400]
-        cov = [[80, 20], [20, 130]]
-        self.volume_items,self.profit_items = np.random.multivariate_normal(mean, cov, dimension).astype(np.int)
+        cov = [[8, 100], [100, 13]]
+        features, true_labels = make_blobs(n_samples = dimension,
+                                           centers = 3,
+                                           cluster_std = 1.75,
+                                           random_state = 42)
+        self.volume_items, self.profit_items = features[:,0], features[:,1]
+        # self.volume_items, self.profit_items = np.random.multivariate_normal(mean, cov , dimension).astype(np.int).T
         num_items_prob = np.random.choice(np.arange(1, dimension//2), 1)[0]
         self.capacity = int(np.mean(self.volume_items) * num_items_prob)
 
