@@ -12,10 +12,12 @@ def run_trial_KP():
     # print("random")
     ic = KP_Instance_Creator("random")
     ic.plot_data_scatter()
+    ic.plot_data_distribution()
     for i in range(len(distributions)):
         # print(distributions[i])
         ic = KP_Instance_Creator(distributions[i])
         ic.plot_data_scatter()
+        ic.plot_data_distribution()
     # i = 7
     # print(distributions[i])
     # ic = KP_Instance_Creator(distributions[i])

@@ -93,7 +93,8 @@ class KP_Instance_Creator:
                                            centers = 3,
                                            cluster_std = 1.75,
                                            random_state = 42)
-        self.volume_items, self.profit_items = np.array(features[:,0]), np.array(features[:,1])
+        max_value = np.max(np.abs(features)) + 0.1
+        self.volume_items, self.profit_items = np.array(features[:,0]+max_value), np.array(features[:,1]+max_value)
         # self.volume_items, self.profit_items = np.random.multivariate_normal(mean, cov , dimension).astype(np.int).T
         num_items_prob = np.random.choice(np.arange(1, dimension//2), 1)[0]
         self.capacity = int(np.mean(self.volume_items) * num_items_prob)
@@ -114,6 +115,7 @@ class KP_Instance_Creator:
         volume_plot = normalize(self.volume_items, index_sort=greedy_sort)
         profit_plot = normalize(self.profit_items, index_sort=greedy_sort)
         cum_volume = np.cumsum(self.volume_items[greedy_sort])
+        # print(self.capacity, cum_volume)
         arg_where = np.where(cum_volume >= self.capacity)[0][0]
         capacity_plot = arg_where / len(self.volume_items)
         print(f"collected {capacity_plot*100}% of the volume")
