@@ -128,6 +128,18 @@ class KP_Instance_Creator:
         plt.legend()
         plt.show()
 
+    def plot_solution(self, solution):
+        plt.figure(figsize=(8, 8))
+        plt.title(self.distribution)
+        plt.scatter(self.profit_items, self.volume_items)
+        plt.scatter(self.profit_items[solution],
+                    self.volume_items[solution], "red")
+        plt.xlabel("profit values")
+        plt.ylabel("volume values")
+        plt.show()
+
 
 def normalize(array_, index_sort):
     return (np.max(array_)- array_[index_sort]) / (np.max(array_)- np.min(array_))
+
+
