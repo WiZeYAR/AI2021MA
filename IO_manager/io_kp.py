@@ -36,7 +36,7 @@ class KP_Instance_Creator:
         assert name_type in self.existing_distributions, f"the distribution {name_type} does not exits"
         folder = "problems/KP/"
         if "AI" not in os.getcwd():
-            folder = "AI2020/problems/TSP/"
+            folder = "AI2020/problems/KP/"
         files_distr = [file_ for file_ in os.listdir(folder) if name_type in file_]
         file_object = np.random.choice(files_distr, 1)[0]
         file_object = open(f"{folder}{file_object}")
