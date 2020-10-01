@@ -133,7 +133,7 @@ class KP_Instance_Creator:
         plt.title(self.distribution)
         plt.scatter(self.profit_items, self.volume_items)
         plt.scatter(self.profit_items[solution],
-                    self.volume_items[solution], "red")
+                    self.volume_items[solution], c="red")
         plt.xlabel("profit values")
         plt.ylabel("volume values")
         plt.show()
