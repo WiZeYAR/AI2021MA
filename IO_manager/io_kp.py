@@ -51,9 +51,7 @@ class KP_Instance_Creator:
         self.volume_items = np.zeros(self.nItems, np.int)
         self.profit_items = np.zeros(self.nItems, np.int)
         for i in range(self.nItems):
-            print(len(lines), i)
             line_i = lines[3 + i].split(' ')
-            print(line_i)
             self.profit_items[i] = int(line_i[0])
             self.volume_items[i] = int(line_i[1])
         if name_type in ["inverse_strongly_correlated",
