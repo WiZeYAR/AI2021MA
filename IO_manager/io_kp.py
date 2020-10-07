@@ -120,6 +120,7 @@ class KP_Instance_Creator:
         capacity_plot = arg_where / len(self.volume_items)
         print(f"collected {capacity_plot*100}% of the volume")
 
+
         plt.hist(volume_plot, 50, density=True, histtype='step',
                            cumulative=True, label='volume comulative', color='blue')
         plt.hist(profit_plot, 50, density=True, histtype='step',
