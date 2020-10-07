@@ -54,7 +54,8 @@ class Solver_TSP:
         self.solution = self.methods[0](instance_.dist_matrix)
         assert self.check_if_solution_is_valid(self.solution), "Error the solution is not valid"
         for i in range(1, len(self.methods)):
-            self.solution, len, self.uncrosses = self.methods[i](self.solution, self.instance.dist_matrix)
+            self.solution, len, new_ls = self.methods[i](self.solution, self.instance.dist_matrix)
+            self.ls_steps += new_ls
             assert self.check_if_solution_is_valid(self.solution), "Error the solution is not valid"
 
         end = t()
