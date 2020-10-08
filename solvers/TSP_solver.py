@@ -84,7 +84,7 @@ class Solver_TSP:
 
     def check_if_solution_is_valid(self, solution):
         rights_values = np.sum([self.check_validation(i, solution) for i in np.arange(self.instance.nPoints)])
-        print(rights_values)
+        print(rights_values, self.instance.nPoints)
         if rights_values == self.instance.nPoints - 1:
             return True
         else:
