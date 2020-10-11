@@ -104,7 +104,7 @@ class Solver_TSP:
 
     def evaluate_solution(self, return_value=False):
         total_length = 0
-        print(self.solution)
+        print("solution" , self.solution)
         starting_node = self.solution[0]
         from_node = starting_node
         for node in self.solution[1:]:
