@@ -14,7 +14,7 @@ class Solver_TSP:
 
     solution: ndarray
     found_length: float
-    available_initializers = {"random": random_initialier.random_method,
+    available_initializers = {"random": random_initializer.random_method,
                               "nearest_neighbors": nearest_neighbor.nn,
                               # "best_nn": nearest_neighbor.best_nn,
                               "multi_fragment": multi_fragment.mf
