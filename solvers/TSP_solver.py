@@ -50,6 +50,8 @@ class Solver_TSP:
         self.instance = instance_
         self.solved = False
         self.ls_calls = 0
+        if self.seed > 0:
+            np.random.seed(self.seed)
         if verbose:
             print(f"###  solving with {self.methods} ####")
         start = t()
