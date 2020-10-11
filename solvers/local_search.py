@@ -5,7 +5,7 @@ class TwoOpt:
 
     @staticmethod
     def step2opt(solution, matrix_dist, distance):
-        seq_length = len(solution) - 1
+        seq_length = len(solution)
         tsp_sequence = np.array(solution)
         uncrosses = 0
         for i in range(1, seq_length):
@@ -43,7 +43,7 @@ class TwoOpt:
             if new_reward < new_len:
                 new_len = new_reward
             else:
-                return new_tsp_sequence.tolist()[0], 0
+                return new_tsp_sequence, 0
 
 
 
