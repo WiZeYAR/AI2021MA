@@ -47,7 +47,7 @@ class TwoOpt:
                 new_len = new_reward
             else:
                 # print(new_tsp_sequence)
-                return new_tsp_sequence, 0
+                return new_tsp_sequence[0], 0
 
 
 
