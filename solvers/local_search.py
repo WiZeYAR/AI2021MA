@@ -18,7 +18,7 @@ class TwoOpt:
                     # print(new_distance)
                     # print(tsp_sequence)
                     distance = new_distance
-        return tsp_sequence.tolist(), distance, uncrosses
+        return tsp_sequence, distance, uncrosses
 
     @staticmethod
     def swap2opt(tsp_sequence, i, j):
@@ -47,7 +47,7 @@ class TwoOpt:
                 new_len = new_reward
             else:
                 # print(new_tsp_sequence)
-                return new_tsp_sequence[0], 0
+                return new_tsp_sequence, 0
 
 
 
