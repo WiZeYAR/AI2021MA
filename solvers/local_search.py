@@ -15,10 +15,10 @@ class TwoOpt:
                 if new_distance < distance:
                     uncrosses += 1
                     tsp_sequence = np.copy(new_tsp_sequence)
-                    print(new_distance)
-                    print(tsp_sequence)
+                    # print(new_distance)
+                    # print(tsp_sequence)
                     distance = new_distance
-        return tsp_sequence, distance, uncrosses
+        return tsp_sequence.tolist(), distance, uncrosses
 
     @staticmethod
     def swap2opt(tsp_sequence, i, j):
@@ -46,6 +46,7 @@ class TwoOpt:
             if new_reward < new_len:
                 new_len = new_reward
             else:
+                print(new_tsp_sequence)
                 return new_tsp_sequence, 0
 
 
