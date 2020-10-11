@@ -43,7 +43,7 @@ class TwoOpt:
             if new_reward < new_len:
                 new_len = new_reward
             else:
-                return new_tsp_sequence.tolist(), 0
+                return new_tsp_sequence.tolist()[0], 0
 
 
 
