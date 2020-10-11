@@ -51,10 +51,10 @@ class Solver_TSP:
         if verbose:
             print(f"###  solving with {self.methods} ####")
         start = t()
-        self.solution, _, _ = self.methods[0](instance_.dist_matrix)
+        self.solution = self.methods[0](instance_.dist_matrix)
         assert self.check_if_solution_is_valid(self.solution), "Error the solution is not valid"
         for i in range(1, len(self.methods)):
-            self.solution, new_len, ls = self.methods[i](self.solution, self.instance.dist_matrix)
+            self.solution, ls = self.methods[i](self.solution, self.instance.dist_matrix)
             self.ls_steps += ls
             assert self.check_if_solution_is_valid(self.solution), "Error the solution is not valid"
 

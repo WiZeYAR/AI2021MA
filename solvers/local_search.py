@@ -33,7 +33,7 @@ class TwoOpt:
         return - old_link_len + changed_links_len
 
     @staticmethod
-    def loop2opt(solution, matrix_dist):
+    def local_search(solution, matrix_dist):
         new_len = compute_lenght(solution, matrix_dist)
         new_tsp_sequence = np.copy(np.array(solution))
         uncross = 0
@@ -43,10 +43,8 @@ class TwoOpt:
             if new_reward < new_len:
                 new_len = new_reward
             else:
-                return new_tsp_sequence.tolist()
+                return new_tsp_sequence.tolist(), 0
 
-        # return new_tsp_sequence.tolist(), new_len, uncross
-        return new_tsp_sequence.tolist()
 
 
 class TwoDotFiveOpt:
@@ -110,7 +108,7 @@ class TwoDotFiveOpt:
         return - old_link_len + changed_links_len
 
     @staticmethod
-    def loop2dot5opt(solution, matrix_dist, max_num_of_changes=10000):
+    def local_search(solution, matrix_dist, max_num_of_changes=10000):
         actual_len = compute_lenght(solution, matrix_dist)
         new_tsp_sequence = np.copy(np.array(solution))
         uncross = 0
@@ -134,5 +132,6 @@ def compute_lenght(solution, dist_matrix):
     for node in solution[1:]:
         total_length += dist_matrix[from_node, node]
         from_node = node
+    total_length += dist_matrix[from_node, starting_node]
     return total_length
 
