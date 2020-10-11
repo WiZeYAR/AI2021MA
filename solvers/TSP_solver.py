@@ -67,7 +67,6 @@ class Solver_TSP:
         end = t()
         self.time_to_solve = np.around(end - start,3)
         self.solved = True
-        self.evaluate_solution()
         self._gap()
         if verbose:
             print(f"###  solution found with {self.gap} % gap  in {self.time_to_solve} seconds ####")
