@@ -9,7 +9,7 @@ from scipy.sparse.csgraph import minimum_spanning_tree
 
 class TSP_Instance_Creator:
     nPoints: int
-    best_sol: int
+    best_sol: float
     name: str
     lines: List[str]
     dist_matrix: ndarray
@@ -87,19 +87,20 @@ class TSP_Instance_Creator:
         plt.show()
 
     def plot_solution(self):
-        assert self.name in ["eil76", "kroA100"], f"the solution is not available for {self.name}"
-        plt.figure(figsize=(8, 8))
-        plt.title(self.name)
-        plt.scatter(self.points[:, 1], self.points[:, 2])
-        for i, txt in enumerate(np.arange(self.nPoints)):  # tour_found[:-1]
-            plt.annotate(txt, (self.points[i, 1], self.points[i, 2]))
+        # assert self.name in ["eil76", "kroA100"], f"the solution is not available for {self.name}"
+        if self.exist_opt:
+            plt.figure(figsize=(8, 8))
+            plt.title(self.name)
+            plt.scatter(self.points[:, 1], self.points[:, 2])
+            for i, txt in enumerate(np.arange(self.nPoints)):  # tour_found[:-1]
+                plt.annotate(txt, (self.points[i, 1], self.points[i, 2]))
 
-        for i,j in zip(self.optimal_tour[:-1], self.optimal_tour[1:]):
-            plt.plot([self.points[i, 1], self.points[j, 1]],
-                     [self.points[i, 2], self.points[j, 2]], 'b-')
-        plt.plot([self.points[self.optimal_tour[0], 1], self.points[self.optimal_tour[-1], 1]],
-                 [self.points[self.optimal_tour[0], 2], self.points[self.optimal_tour[-1], 2]], 'b-')
-        plt.show()
+            for i,j in zip(self.optimal_tour[:-1], self.optimal_tour[1:]):
+                plt.plot([self.points[i, 1], self.points[j, 1]],
+                         [self.points[i, 2], self.points[j, 2]], 'b-')
+            plt.plot([self.points[self.optimal_tour[0], 1], self.points[self.optimal_tour[-1], 1]],
+                     [self.points[self.optimal_tour[0], 2], self.points[self.optimal_tour[-1], 2]], 'b-')
+            plt.show()
 
     @staticmethod
     def distance_euc(zi, zj):
