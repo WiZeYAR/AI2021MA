@@ -59,7 +59,6 @@ class Solver_TSP:
         # assert self.check_if_solution_is_valid(self.solution), "Error the solution is not valid"
         for i in range(1, len(self.methods)):
             data_ret = self.methods[i](self.solution, self.instance.dist_matrix)
-            print(f'return {i}', data_ret)
             self.solution, ls = data_ret
             self.ls_calls += ls
             # assert self.check_if_solution_is_valid(self.solution), "Error the solution is not valid"
@@ -92,7 +91,7 @@ class Solver_TSP:
 
     def check_if_solution_is_valid(self, solution):
         rights_values = np.sum([self.check_validation(i, solution) for i in np.arange(self.instance.nPoints)])
-        # print(rights_values, self.instance.nPoints)
+
         if rights_values == self.instance.nPoints:
             return True
         else:
@@ -106,17 +105,13 @@ class Solver_TSP:
 
     def evaluate_solution(self, return_value=False):
         total_length = 0
-        print("solution" , self.solution)
         starting_node = self.solution[0]
         from_node = starting_node
         for node in self.solution[1:]:
-            print(total_length, from_node, node)
             total_length += self.instance.dist_matrix[from_node, node]
             from_node = node
 
-        print(total_length)
         total_length += self.instance.dist_matrix[from_node, starting_node]
-        print(total_length)
         self.found_length = total_length
         if return_value:
             return total_length
