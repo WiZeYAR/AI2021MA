@@ -14,24 +14,25 @@ class Solver_TSP:
 
     solution: ndarray
     found_length: float
-    available_initializers = {
-        # "random": random_initialier.random_method,
+    available_initializers = {"random": random_initialier.random_method,
                               "nearest_neighbors": nearest_neighbor.nn,
                               # "best_nn": nearest_neighbor.best_nn,
                               "multi_fragment": multi_fragment.mf
                               }
 
-    available_improvements = {"2-opt": TwoOpt.loop2opt,
-                              "2.5-opt": TwoDotFiveOpt.loop2dot5opt}
+    available_improvements = {"2-opt": TwoOpt.local_search,
+                              "2.5-opt": TwoDotFiveOpt.local_search}
 
 
 
-    def __init__(self, initializer):
+    def __init__(self, initializer, seed_=0, stop_run_after=180):
         self.initializer = initializer[0]
         self.methods_name = [initializer[0]]
         self.methods = [initializer[1]]
         self.name_method = "initialized with " + self.initializer
         self.solved = False
+        self.seed = seed_
+        self.max_time = stop_run_after
         # assert self.initializer in self.available_initializers, f"the {initializer} initializer is not available currently."
 
     def bind(self, local_or_meta):
@@ -48,15 +49,18 @@ class Solver_TSP:
     def __call__(self, instance_, verbose=False, return_value=False):
         self.instance = instance_
         self.solved = False
+        self.ls_calls = 0
         if verbose:
             print(f"###  solving with {self.methods} ####")
         start = t()
         self.solution = self.methods[0](instance_.dist_matrix)
-        assert self.check_if_solution_is_valid(self.solution), "Error the solution is not valid"
+        # assert self.check_if_solution_is_valid(self.solution), "Error the solution is not valid"
         for i in range(1, len(self.methods)):
             self.solution, ls = self.methods[i](self.solution, self.instance.dist_matrix)
-            self.ls_steps += ls
-            assert self.check_if_solution_is_valid(self.solution), "Error the solution is not valid"
+            self.ls_calls += ls
+            # assert self.check_if_solution_is_valid(self.solution), "Error the solution is not valid"
+            if t() - start > self.max_time:
+                break
 
         end = t()
         self.time_to_solve = np.around(end - start,3)
@@ -68,6 +72,7 @@ class Solver_TSP:
             print(f"the total length for the solution found is {self.found_length}",
                   f"while the optimal length is {self.instance.best_sol}",
                   f"the gap is {self.gap}%",
+                  f"the number of LS calls are {self.ls_calls}",
                   f"the solution is found in {self.time_to_solve} seconds", sep="\n")
 
         if return_value:

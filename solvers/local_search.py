@@ -108,18 +108,18 @@ class TwoDotFiveOpt:
         return - old_link_len + changed_links_len
 
     @staticmethod
-    def local_search(solution, matrix_dist, max_num_of_changes=10000):
+    def local_search(solution, matrix_dist):
         actual_len = compute_lenght(solution, matrix_dist)
         new_tsp_sequence = np.copy(np.array(solution))
         uncross = 0
-        while uncross < max_num_of_changes:
+        while True:
             new_tsp_sequence, new_len, uncr_ = TwoDotFiveOpt.step2dot5opt(new_tsp_sequence, matrix_dist, actual_len)
             uncross += uncr_
             # print(new_len, uncross)
             if new_len < actual_len:
                 actual_len = new_len
             else:
-                return new_tsp_sequence.tolist()
+                return new_tsp_sequence.tolist(), 0
 
         return new_tsp_sequence.tolist()
 
