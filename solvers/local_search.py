@@ -121,8 +121,6 @@ class TwoDotFiveOpt:
             else:
                 return new_tsp_sequence.tolist(), 0
 
-        return new_tsp_sequence.tolist()
-
 
 
 def compute_lenght(solution, dist_matrix):

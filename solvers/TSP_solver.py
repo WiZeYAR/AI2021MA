@@ -107,7 +107,7 @@ class Solver_TSP:
         starting_node = self.solution[0]
         from_node = starting_node
         for node in self.solution[1:]:
-            print(total_length)
+            print(total_length, from_node, node)
             total_length += self.instance.dist_matrix[from_node, node]
             from_node = node
 
