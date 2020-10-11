@@ -15,6 +15,8 @@ class TwoOpt:
                 if new_distance < distance:
                     uncrosses += 1
                     tsp_sequence = np.copy(new_tsp_sequence)
+                    print(new_distance)
+                    print(tsp_sequence)
                     distance = new_distance
         return tsp_sequence, distance, uncrosses
 
