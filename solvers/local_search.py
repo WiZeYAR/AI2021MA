@@ -8,10 +8,10 @@ class TwoOpt:
         seq_length = len(solution)
         tsp_sequence = np.array(solution)
         uncrosses = 0
-        for i in range(1, seq_length):
-            for j in range(i + 1, seq_length):
-                new_tsp_sequence = TwoOpt.swap2opt(tsp_sequence, i, j)
-                new_distance = distance + TwoOpt.gain(i, j, tsp_sequence, matrix_dist)
+        for i in range(1, seq_length - 1):
+            for j in range(i , seq_length - 1):
+                new_tsp_sequence = TwoOpt.swap2opt(tsp_sequence, i - 1, j)
+                new_distance = distance + TwoOpt.gain(i - 1, j, tsp_sequence, matrix_dist)
                 if new_distance < distance:
                     uncrosses += 1
                     tsp_sequence = np.copy(new_tsp_sequence)
@@ -23,7 +23,8 @@ class TwoOpt:
     @staticmethod
     def swap2opt(tsp_sequence, i, j):
         new_tsp_sequence = np.copy(tsp_sequence)
-        new_tsp_sequence[i:j + 1] = np.flip(tsp_sequence[i:j + 1], axis=0)  # flip or swap ?
+        final_index = j +1 #if j+1 < len(tsp_sequence) else -1
+        new_tsp_sequence[i:final_index] = np.flip(tsp_sequence[i:final_index], axis=0)  # flip or swap ?
         return new_tsp_sequence
 
     @staticmethod
