@@ -1,11 +1,11 @@
 import numpy as np
 
-class random_initialier:
+class random_initializer:
     @staticmethod
     def random_method(dist_matrix):
         n = int(dist_matrix.shape[0])
         solution = np.random.choice(np.arange(n), size=n, replace=False)
-        return np.concatenate([solution, [solution[0]]])
+        return solution
 
 
 class nearest_neighbor:

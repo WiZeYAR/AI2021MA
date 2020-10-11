@@ -111,6 +111,7 @@ class Solver_TSP:
             total_length += self.instance.dist_matrix[from_node, node]
             from_node = node
 
+        total_length += self.instance.dist_matrix[from_node, starting_node]
         self.found_length = total_length
         if return_value:
             return total_length
