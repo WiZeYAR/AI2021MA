@@ -139,4 +139,5 @@ def compute_lenght(solution, dist_matrix):
     for node in solution[1:]:
         total_length += dist_matrix[from_node, node]
         from_node = node
+    total_length += dist_matrix[from_node, starting_node]
     return total_length
