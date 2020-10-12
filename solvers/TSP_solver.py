@@ -57,12 +57,12 @@ class Solver_TSP:
         start = t()
         self.solution, self.found_length = self.methods[0](instance_.dist_matrix)
         for i in range(1, len(self.methods)):
-            for data_ret in self.methods[i](self.solution, self.instance.dist_matrix):
-                self.solution, new_len, ls = data_ret
-                self.ls_calls += ls
-                if t() - start > self.max_time:
+            for data_ret in self.methods[i](self.solution, self.found_length, self.instance.dist_matrix):
+                # self.solution, new_len, ls = data_ret
+                self.solution, self.found_length, ls, end_condition = data_ret
+                if t() - start > self.max_time or end_condition:
                     break
-
+            self.ls_calls += ls
         end = t()
         self.time_to_solve = np.around(end - start,3)
         self.solved = True

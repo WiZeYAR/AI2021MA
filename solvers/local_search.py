@@ -36,18 +36,17 @@ class TwoOpt:
         return - old_link_len + changed_links_len
 
     @staticmethod
-    def local_search(solution, matrix_dist):
-        new_len = compute_lenght(solution, matrix_dist)
+    def local_search(solution, actual_len,  matrix_dist):
         new_tsp_sequence = np.copy(np.array(solution))
         uncross = 0
         while True:
-            new_tsp_sequence, new_reward, uncr_ = TwoOpt.step2opt(new_tsp_sequence, matrix_dist, new_len)
+            new_tsp_sequence, new_reward, uncr_ = TwoOpt.step2opt(new_tsp_sequence, matrix_dist, actual_len)
             uncross += uncr_
-            if new_reward < new_len:
-                new_len = new_reward
+            if new_reward < actual_len:
+                actual_len = new_reward
+                yield new_tsp_sequence, actual_len, 0, False
             else:
-                # print(new_tsp_sequence)
-                return new_tsp_sequence, new_len, 0
+                yield new_tsp_sequence, actual_len, 1, True
 
 
 
@@ -112,8 +111,7 @@ class TwoDotFiveOpt:
         return - old_link_len + changed_links_len
 
     @staticmethod
-    def local_search(solution, matrix_dist):
-        actual_len = compute_lenght(solution, matrix_dist)
+    def local_search(solution, actual_len, matrix_dist):
         new_tsp_sequence = np.copy(np.array(solution))
         uncross = 0
         while True:
@@ -122,8 +120,9 @@ class TwoDotFiveOpt:
             # print(new_len, uncross)
             if new_len < actual_len:
                 actual_len = new_len
+                yield new_tsp_sequence, new_len, 0, False
             else:
-                return new_tsp_sequence, new_len, 0
+                yield new_tsp_sequence, new_len, 1, True
 
 
 
