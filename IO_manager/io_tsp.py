@@ -86,7 +86,7 @@ class TSP_Instance_Creator:
             plt.annotate(txt, (self.points[i, 1], self.points[i, 2]))
         plt.show()
 
-    def plot_solution(self):
+    def plot_optimal_solution(self):
         # assert self.name in ["eil76", "kroA100"], f"the solution is not available for {self.name}"
         if self.exist_opt:
             plt.figure(figsize=(8, 8))
