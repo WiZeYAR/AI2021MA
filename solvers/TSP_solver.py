@@ -33,10 +33,9 @@ class Solver_TSP:
         self.solved = False
         self.seed = seed_
         self.max_time = stop_run_after
-        # assert self.initializer in self.available_initializers, f"the {initializer} initializer is not available currently."
+
 
     def bind(self, local_or_meta):
-        # assert local_or_meta in self.available_improvements, f"the {local_or_meta} method is not available currently."
         self.methods.append(local_or_meta[1])
         self.methods_name.append(local_or_meta[0])
         self.name_method += ", improved with " + local_or_meta[0]
@@ -45,6 +44,7 @@ class Solver_TSP:
         self.methods.pop()
         self.name_method = self.name_method[::-1][self.name_method[::-1].find("improved"[::-1]) + len("improved") + 2:][
                            ::-1]
+
 
     def __call__(self, instance_, verbose=False, return_value=False):
         self.instance = instance_
@@ -55,15 +55,13 @@ class Solver_TSP:
         if verbose:
             print(f"###  solving with {self.methods} ####")
         start = t()
-        self.solution = self.methods[0](instance_.dist_matrix)
-        # assert self.check_if_solution_is_valid(self.solution), "Error the solution is not valid"
+        self.solution, self.found_length = self.methods[0](instance_.dist_matrix)
         for i in range(1, len(self.methods)):
-            data_ret = self.methods[i](self.solution, self.instance.dist_matrix)
-            self.solution, new_len, ls = data_ret
-            self.ls_calls += ls
-            # assert self.check_if_solution_is_valid(self.solution), "Error the solution is not valid"
-            if t() - start > self.max_time:
-                break
+            for data_ret in self.methods[i](self.solution, self.instance.dist_matrix):
+                self.solution, new_len, ls = data_ret
+                self.ls_calls += ls
+                if t() - start > self.max_time:
+                    break
 
         end = t()
         self.time_to_solve = np.around(end - start,3)

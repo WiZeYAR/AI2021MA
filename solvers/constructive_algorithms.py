@@ -5,7 +5,7 @@ class random_initializer:
     def random_method(dist_matrix):
         n = int(dist_matrix.shape[0])
         solution = np.random.choice(np.arange(n), size=n, replace=False)
-        return solution
+        return solution, compute_lenght(solution, dist_matrix)
 
 
 class nearest_neighbor:
@@ -21,8 +21,7 @@ class nearest_neighbor:
                     tour.append(new_node)
                     node = new_node
                     break
-        tour.append(starting_node)
-        return np.array(tour)
+        return tour, compute_lenght(tour, dist_matrix)
 
     @staticmethod
     def best_nn(dist_matrix):
@@ -99,7 +98,7 @@ class multi_fragment:
                 if iterazione > 300:
                     if len(sol_list) == n:
                         end = True
-        sol_list.append(n1)
+        # sol_list.append(n1)
         return sol_list
 
     @staticmethod
@@ -130,7 +129,7 @@ class multi_fragment:
                         # print(f"ricostruire la solutione da {start_list}",
                         #       f"vicini di questi due nodi {[solution[str(i)] for i in start_list]}")
                         solution = multi_fragment.create_solution(start_list, solution, num_cit)
-                        return solution
+                        return solution, compute_lenght(solution, dist_matrix)
 
 
 def compute_lenght(solution, dist_matrix):
