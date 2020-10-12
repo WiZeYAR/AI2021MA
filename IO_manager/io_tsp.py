@@ -80,7 +80,7 @@ class TSP_Instance_Creator:
 
     def plot_data(self):
         plt.figure(figsize=(8, 8))
-        plt.title(self.name)
+        plt.title(self.name + " optimal")
         plt.scatter(self.points[:, 1], self.points[:, 2])
         for i, txt in enumerate(np.arange(self.nPoints)):  # tour_found[:-1]
             plt.annotate(txt, (self.points[i, 1], self.points[i, 2]))
