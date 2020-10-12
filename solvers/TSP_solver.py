@@ -85,6 +85,8 @@ class Solver_TSP:
         plt.title(f"{self.instance.name} solved with {self.name_method} solver, gap {self.gap}")
         ordered_points = self.instance.points[np.hstack([self.solution, self.solution[0]])]
         plt.plot(ordered_points[:, 1], ordered_points[:, 2], 'b-')
+        for i, txt in enumerate(np.arange(self.instance.nPoints)):  # tour_found[:-1]
+            plt.annotate(txt, (self.instance.points[i, 1], self.instance.points[i, 2]))
         plt.show()
 
     def check_if_solution_is_valid(self, solution):
