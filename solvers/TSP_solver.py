@@ -83,7 +83,7 @@ class Solver_TSP:
         plt.figure(figsize=(8, 8))
         self._gap()
         plt.title(f"{self.instance.name} solved with {self.name_method} solver, gap {self.gap}")
-        ordered_points = self.instance.points[self.solution]
+        ordered_points = self.instance.points[np.hstack([self.solution, self.solution[0]])]
         plt.plot(ordered_points[:, 1], ordered_points[:, 2], 'b-')
         plt.show()
 
