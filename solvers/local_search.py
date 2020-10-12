@@ -123,7 +123,7 @@ class TwoDotFiveOpt:
             if new_len < actual_len:
                 actual_len = new_len
             else:
-                return new_tsp_sequence, 0
+                return new_tsp_sequence, new_len, 0
 
 
 
