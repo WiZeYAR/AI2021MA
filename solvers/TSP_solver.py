@@ -59,7 +59,7 @@ class Solver_TSP:
         # assert self.check_if_solution_is_valid(self.solution), "Error the solution is not valid"
         for i in range(1, len(self.methods)):
             data_ret = self.methods[i](self.solution, self.instance.dist_matrix)
-            self.solution, ls = data_ret
+            self.solution, new_len, ls = data_ret
             self.ls_calls += ls
             # assert self.check_if_solution_is_valid(self.solution), "Error the solution is not valid"
             if t() - start > self.max_time:
