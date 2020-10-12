@@ -129,7 +129,7 @@ class KP_Instance_Creator:
         plt.legend()
         plt.show()
 
-    def plot_solution(self, solution):
+    def plot_optimal_solution(self, solution):
         plt.figure(figsize=(8, 8))
         plt.title(self.distribution)
         plt.scatter(self.profit_items, self.volume_items)
