@@ -46,7 +46,7 @@ class TwoOpt:
                 actual_len = new_reward
                 yield new_tsp_sequence, actual_len, 0, False
             else:
-                yield new_tsp_sequence, actual_len, 1, True
+                return new_tsp_sequence, actual_len, 1, True
 
 
 
