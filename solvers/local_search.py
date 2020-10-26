@@ -122,7 +122,7 @@ class TwoDotFiveOpt:
                 actual_len = new_len
                 yield new_tsp_sequence, new_len, 0, False
             else:
-                yield new_tsp_sequence, new_len, 1, True
+                return new_tsp_sequence, new_len, 1, True
 
 
 
