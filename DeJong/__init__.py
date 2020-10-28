@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib import cm
 
 
 def DJ1(x):
@@ -72,7 +73,13 @@ class De_Jong:
         z_ = np.stack([X.flatten(), Y.flatten()], axis=-1)
         Z_ = np.apply_along_axis(self.fun, -1, z_)
         Z = np.resize(Z_, (samples, samples))
-        ax.plot_wireframe(X, Y, Z, color='green')
+
+        # ax.plot_wireframe(X, Y, Z, color='green')
+        ax.plot_surface(X, Y, Z, rstride=8, cstride=8, alpha=0.3)
+        cset = ax.contour(X, Y, Z, zdir='z', offset=-100, cmap=cm.coolwarm)
+        cset = ax.contour(X, Y, Z, zdir='x', offset=-40, cmap=cm.coolwarm)
+        cset = ax.contour(X, Y, Z, zdir='y', offset=40, cmap=cm.coolwarm)
+
         ax.set_xlabel('x')
         ax.set_ylabel('y')
         ax.set_zlabel('f(x,y) ')
