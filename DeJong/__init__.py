@@ -3,7 +3,8 @@ import matplotlib.pyplot as plt
 
 
 def DJ1(x):
-    return sum(x)
+    x_ = x**2
+    return np.sum(x_)
 
 def DJ2(x):
     return sum(x)
@@ -59,3 +60,20 @@ class De_Jong:
             n ^= m
             m >>= 1
         return n
+
+    def plot(self):
+        fig = plt.figure()
+        ax = plt.axes(projection="3d")
+
+        x = np.linspace(self.range[0], self.range[1], 100)
+        y = np.linspace(self.range[0], self.range[1], 100)
+
+        X, Y = np.meshgrid(x, y)
+        z_ = np.concatenate(X, Y, axis=1)
+        Z = self.fun(z_)
+
+        ax.plot_wireframe(X, Y, Z, color='green')
+        ax.set_xlabel('x')
+        ax.set_ylabel('y')
+        ax.set_zlabel('fun')
+        plt.show()
