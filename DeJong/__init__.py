@@ -83,4 +83,5 @@ class De_Jong:
         ax.set_xlabel('x')
         ax.set_ylabel('y')
         ax.set_zlabel('f(x,y) ')
+
         plt.show()
