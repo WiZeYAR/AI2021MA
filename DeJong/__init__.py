@@ -61,16 +61,17 @@ class De_Jong:
         return n
 
     def plot(self):
+        samples=50
         fig = plt.figure()
         ax = plt.axes(projection="3d")
 
-        x = np.linspace(self.range[0], self.range[1], 100)
-        y = np.linspace(self.range[0], self.range[1], 100)
+        x = np.linspace(self.range[0], self.range[1], samples)
+        y = np.linspace(self.range[0], self.range[1], samples)
 
         X, Y = np.meshgrid(x, y)
         z_ = np.stack([X.flatten(), Y.flatten()], axis=-1)
         Z_ = np.apply_along_axis(self.fun, 0, z_)
-        Z = np.resize(Z_, (100, 100))
+        Z = np.resize(Z_, (samples, samples))
         print(X, Y, Z)
         ax.plot_wireframe(X, Y, Z, color='green')
         ax.set_xlabel('x')
