@@ -36,7 +36,7 @@ class De_Jong:
         assert func_number < 5, 'func_number needs to be a number between 1 and 5'
         self.function_name, self.fun, min_, self.resolution_factor, self.dimension = self.funcs[func_number]
         self.range = (-min_ , min_ - self.resolution_factor)
-        self.num_bits = np.log2(int(2* (min_/ self.resolution_factor)))
+        self.num_bits = int(np.log2(int(2* (min_/ self.resolution_factor))))
         if dimension_in:
             self.dimension = dimension_in
 
