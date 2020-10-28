@@ -51,7 +51,7 @@ class De_Jong:
         pad = "0"*(self.num_bits - len(r_val))
         return pad + r_val
 
-    def gray_decode(self, n_s):
+    def gray_decode(n_s):
         n = int(n_s, 2)
         m = n >> 1
         while m:
