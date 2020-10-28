@@ -71,7 +71,7 @@ class De_Jong:
         X, Y = np.meshgrid(x, y)
         z_ = np.concatenate((X, Y), axis=1)
         Z = self.fun(z_)
-
+        print(X.shape, Y.shape, Z.shape)
         ax.plot_wireframe(X, Y, Z, color='green')
         ax.set_xlabel('x')
         ax.set_ylabel('y')
