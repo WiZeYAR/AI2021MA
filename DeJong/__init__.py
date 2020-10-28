@@ -71,7 +71,7 @@ class De_Jong:
 
         X, Y = np.meshgrid(x, y)
         z_ = np.stack([X.flatten(), Y.flatten()], axis=-1)
-        Z_ = np.apply_along_axis(self.fun, 0, z_)
+        Z_ = np.apply_along_axis(self.fun, -1, z_)
         Z = np.resize(Z_, (samples, samples))
         print(X, Y, Z, sep='\n')
         ax.plot_wireframe(X, Y, Z, color='green')
