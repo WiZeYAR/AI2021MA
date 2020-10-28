@@ -33,7 +33,7 @@ class De_Jong:
 
     def __init__(self, func_number, dimension_in=False):
         assert isinstance(func_number, int), f'func_number needs to be an integer!!!'
-        assert func_number > 5, 'func_number needs to be a number between 1 and 5'
+        assert func_number < 5, 'func_number needs to be a number between 1 and 5'
         self.function_name, self.fun, min_, self.resolution_factor, self.dimension = self.funcs[func_number]
         self.range = (-min_ , min_ - self.resolution_factor)
         self.num_bits = int(2* (min_/ self.resolution_factor))
