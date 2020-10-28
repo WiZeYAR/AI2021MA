@@ -61,7 +61,7 @@ class De_Jong:
         return n
 
     def plot(self):
-        samples=50
+        samples=5
         fig = plt.figure()
         ax = plt.axes(projection="3d")
 
