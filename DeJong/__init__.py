@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 
 
 def DJ1(x):
-    print('entrato')
     return np.sum(x**2)
 
 def DJ2(x):
@@ -69,9 +68,8 @@ class De_Jong:
         y = np.linspace(self.range[0], self.range[1], 100)
 
         X, Y = np.meshgrid(x, y)
-        X_, Y_ = X.flatten(), Y.flatten()
-        z_ = np.concatenate((X_, Y_), axis=1)
-        Z_ = self.fun(z_)
+        z_ = np.stack([X, Y], axis=-1)
+        Z_ = np.apply_over_axes(self.fun, z_, [0,1]).squeeze()
         Z = np.resize(Z_, (100, 100))
         print(X.shape, Y.shape, Z.shape)
         ax.plot_wireframe(X, Y, Z, color='green')
