@@ -75,10 +75,11 @@ class De_Jong:
         Z = np.resize(Z_, (samples, samples))
 
         # ax.plot_wireframe(X, Y, Z, color='green')
-        ax.plot_surface(X, Y, Z, rstride=8, cstride=8, alpha=0.3)
-        cset = ax.contour(X, Y, Z, zdir='z', offset=-100, cmap=cm.coolwarm)
-        cset = ax.contour(X, Y, Z, zdir='x', offset=-40, cmap=cm.coolwarm)
-        cset = ax.contour(X, Y, Z, zdir='y', offset=40, cmap=cm.coolwarm)
+        ax.plot_surface(X, Y, Z, cmap=cm.coolwarm,
+                       linewidth=0, antialiased=False)
+        cset = ax.contour(X, Y, Z, zdir='z', cmap=cm.coolwarm)
+        cset = ax.contour(X, Y, Z, zdir='x', cmap=cm.coolwarm)
+        cset = ax.contour(X, Y, Z, zdir='y', cmap=cm.coolwarm)
 
         ax.set_xlabel('x')
         ax.set_ylabel('y')
