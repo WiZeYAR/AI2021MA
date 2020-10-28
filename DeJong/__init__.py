@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 
 
 def DJ1(x):
-    print(x, np.sum(x**2))
     return np.sum(x**2)
 
 def DJ2(x):
