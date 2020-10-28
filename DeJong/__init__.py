@@ -72,7 +72,7 @@ class De_Jong:
         X_, Y_ = X.flatten(), Y.flatten()
         z_ = np.concatenate((X_, Y_), axis=1)
         Z_ = self.fun(z_)
-        Z = np.resize(100, 100)
+        Z = np.resize(Z_, (100, 100))
         print(X.shape, Y.shape, Z.shape)
         ax.plot_wireframe(X, Y, Z, color='green')
         ax.set_xlabel('x')
