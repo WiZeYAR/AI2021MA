@@ -61,7 +61,7 @@ class De_Jong:
         return n
 
     def plot(self):
-        samples=5
+        samples=100
         fig = plt.figure()
         ax = plt.axes(projection="3d")
 
@@ -72,9 +72,8 @@ class De_Jong:
         z_ = np.stack([X.flatten(), Y.flatten()], axis=-1)
         Z_ = np.apply_along_axis(self.fun, -1, z_)
         Z = np.resize(Z_, (samples, samples))
-        print(X, Y, Z, sep='\n')
         ax.plot_wireframe(X, Y, Z, color='green')
         ax.set_xlabel('x')
         ax.set_ylabel('y')
-        ax.set_zlabel('fun')
+        ax.set_zlabel('f(x,y) ')
         plt.show()
