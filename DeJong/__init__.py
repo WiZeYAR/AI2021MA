@@ -45,12 +45,14 @@ class De_Jong:
         x = De_Jong.gray_decode(x_e)
         return self.fun(x)
 
-    @staticmethod
-    def gray_encode(n):
-        return n ^ n >> 1
+    def gray_encode(self, n):
+        val = n ^ n >> 1
+        r_val = f"{val:>b}"
+        pad = "0"*(self.num_bits - len(r_val))
+        return pad + r_val
 
-    @staticmethod
-    def gray_decode(n):
+    def gray_decode(self, n_s):
+        n = int(n_s, 2)
         m = n >> 1
         while m:
             n ^= m
