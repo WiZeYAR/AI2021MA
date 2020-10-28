@@ -69,8 +69,10 @@ class De_Jong:
         y = np.linspace(self.range[0], self.range[1], 100)
 
         X, Y = np.meshgrid(x, y)
-        z_ = np.concatenate((X, Y), axis=1)
-        Z = self.fun(z_)
+        X_, Y_ = X.flatten(), Y.flatten()
+        z_ = np.concatenate((X_, Y_), axis=1)
+        Z_ = self.fun(z_)
+        Z = np.resize(100, 100)
         print(X.shape, Y.shape, Z.shape)
         ax.plot_wireframe(X, Y, Z, color='green')
         ax.set_xlabel('x')
