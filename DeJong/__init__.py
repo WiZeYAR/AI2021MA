@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 
 
 def DJ1(x):
-    x_ = x**2
-    return np.sum(x_)
+    print('entrato')
+    return np.sum(x**2)
 
 def DJ2(x):
     return sum(x)
