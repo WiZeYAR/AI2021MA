@@ -10,13 +10,20 @@ def DJ2(x):
     return 100*((x[0]**2- x[1])**2) + ((1 - x[0])**2)
 
 def DJ3(x):
-    return sum(x)
+    return np.sum(np.ceil(x)) + 24
 
 def DJ4(x):
-    return sum(x)
+    return np.sum(x**4) + np.random.normal()
+
+a_up = np.tile([-32, -16, 0, 16, 32],5)
+a_down = np.transpose(np.tile([-32, -16, 0, 16, 32], (5, 1))).flatten()
+a = np.stack([a_up, a_down])
 
 def DJ5(x):
-    return sum(x)
+    d = 0.002
+    for i in range(25):
+        d += 1/(i + (x[0]- a[0][i])**6 + (x[1]- a[1][i])**6)
+    return 1/d
 
 
 
