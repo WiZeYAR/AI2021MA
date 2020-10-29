@@ -48,14 +48,15 @@ class De_Jong:
         if dimension_in:
             self.dimension = dimension_in
 
-    def decode(self, x):
+    def decode_(self, x):
         return x
 
     def evaluate(self, x_e, gray_=False):
         assert len(x_e[0]) == self.dimension, 'the dimension does not match with the problem'
         if gray_:
             self.decode = self.gray_decode
-
+        else:
+            self.decode = self.decode_
         fitness_pop_list = []
         for i in range(len(x_e)):
             pos = []
