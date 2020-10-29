@@ -62,7 +62,7 @@ class De_Jong:
             for dim in range(self.dimension):
                 pos.append(self.decode(x_e[i][dim]))
             fitness_pop_list.append(self.fun(np.array(pos)))
-        return fitness_pop_list
+        return np.array(fitness_pop_list)
 
     def gray_encode(self, n_f):
         scale = int(1/self.resolution_factor)
