@@ -53,20 +53,22 @@ class De_Jong:
         x = De_Jong.gray_decode(x_e)
         return self.fun(x)
 
-    def gray_encode(self, n):
+    def gray_encode(self, n_f):
+        n = int((n_f - self.range[0])/self.resolution_factor)
         val = n ^ n >> 1
         r_val = f"{val:>b}"
         pad = "0"*(self.num_bits - len(r_val))
         return pad + r_val
 
-    @staticmethod
-    def gray_decode(n_s):
+
+    def gray_decode(self, n_s):
         n = int(n_s, 2)
         m = n >> 1
         while m:
             n ^= m
             m >>= 1
-        return n
+        n_f = self.range[0] + self.resolution_factor*n
+        return n_f
 
     def plot(self):
         samples= int(1/self.resolution_factor)
