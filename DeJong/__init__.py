@@ -48,15 +48,25 @@ class De_Jong:
         if dimension_in:
             self.dimension = dimension_in
 
+    def decode(self, x):
+        return x
 
-    def evaluate(self, x_e):
-        x = self.gray_decode(x_e)
-        return self.fun(x)
+    def evaluate(self, x_e, gray_=False):
+        assert len(x_e[0]) == self.dimension, 'the dimension does not match with the problem'
+        if gray_:
+            self.decode = self.gray_decode
+
+        fitness_pop_list = []
+        for i in range(len(x_e)):
+            pos = []
+            for dim in range(self.dimension):
+                pos.append(self.decode(x_e[i][dim]))
+            fitness_pop_list.append(self.fun(np.array(pos)))
+        return fitness_pop_list
 
     def gray_encode(self, n_f):
         scale = int(1/self.resolution_factor)
         n = int(n_f * scale - self.range[0]*scale)
-        print(n_f, n, self.range, self.resolution_factor)
         val = n ^ n >> 1
         r_val = f"{val:>b}"
         pad = "0"*(self.num_bits - len(r_val))
