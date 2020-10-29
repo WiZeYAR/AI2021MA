@@ -55,6 +55,7 @@ class De_Jong:
 
     def gray_encode(self, n_f):
         n = int((n_f - self.range[0])/self.resolution_factor)
+        print(n_f, n, self.range, self.resolution_factor)
         val = n ^ n >> 1
         r_val = f"{val:>b}"
         pad = "0"*(self.num_bits - len(r_val))
@@ -67,7 +68,7 @@ class De_Jong:
         while m:
             n ^= m
             m >>= 1
-        n_f = self.range[0] + self.resolution_factor*n
+        n_f = np.around(self.range[0] + self.resolution_factor*n, 2)
         return n_f
 
     def plot(self):
