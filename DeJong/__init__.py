@@ -54,8 +54,8 @@ class De_Jong:
         return self.fun(x)
 
     def gray_encode(self, n_f):
-        n_f = np.around(n_f, 2)
-        n = int((n_f - self.range[0])/self.resolution_factor)
+        scale = int(1/self.resolution_factor)
+        n = int(n_f * scale - self.range[0]*scale)
         print(n_f, n, self.range, self.resolution_factor)
         val = n ^ n >> 1
         r_val = f"{val:>b}"
