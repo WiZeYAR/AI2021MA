@@ -50,10 +50,11 @@ class De_Jong:
 
 
     def evaluate(self, x_e):
-        x = De_Jong.gray_decode(x_e)
+        x = self.gray_decode(x_e)
         return self.fun(x)
 
     def gray_encode(self, n_f):
+        n_f = np.around(n_f, 2)
         n = int((n_f - self.range[0])/self.resolution_factor)
         print(n_f, n, self.range, self.resolution_factor)
         val = n ^ n >> 1
