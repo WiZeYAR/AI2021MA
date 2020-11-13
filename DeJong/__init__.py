@@ -43,6 +43,7 @@ class De_Jong:
         assert isinstance(func_number, int), f'func_number needs to be an integer!!!'
         assert func_number < 6 and func_number > 0, 'func_number needs to be a number between 1 and 5'
         self.function_name, self.fun, min_, self.resolution_factor, self.dimension = self.funcs[func_number]
+        self.digits_after = len(str(self.resolution_factor)[2:])
         self.range = (-min_ , min_ - self.resolution_factor)
         self.num_bits = int(np.log2(int(2* (min_/ self.resolution_factor))))
         if dimension_in:
@@ -80,7 +81,7 @@ class De_Jong:
         while m:
             n ^= m
             m >>= 1
-        n_f = np.around(self.range[0] + self.resolution_factor*n, 2)
+        n_f = np.around(self.range[0] + self.resolution_factor*n, self.digits_after)
         return n_f
 
     def plot(self):
