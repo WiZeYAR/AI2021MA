@@ -141,3 +141,16 @@ def compute_lenght(solution, dist_matrix):
         from_node = node
     total_length += dist_matrix[from_node, starting_node]
     return total_length
+
+def nn(dist_matrix, starting_node=0):
+    dist_matrix = np.copy(dist_matrix)
+    n = int(dist_matrix.shape[0])
+    node = starting_node
+    tour = [node]
+    for _ in range(n - 1):
+        for new_node in np.argsort(dist_matrix[node]):
+            if new_node not in tour:
+                tour.append(new_node)
+                node = new_node
+                break
+    return tour, compute_lenght(tour, dist_matrix)
