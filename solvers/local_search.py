@@ -49,6 +49,12 @@ class TwoOpt:
                 return new_tsp_sequence, actual_len, 1, True
 
 
+def twoOpt(solution, actual_len, matrix_dist):
+    for data in TwoOpt.local_search(solution, actual_len, matrix_dist):
+        if data[3]:
+            return data[0], data[1]
+
+
 
 class TwoDotFiveOpt:
 
