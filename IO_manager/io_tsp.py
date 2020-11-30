@@ -122,7 +122,7 @@ class TSP_Instance_Creator:
         self.nPoints = dimension
         self.points = np.zeros((self.nPoints, 3))
         for i in range(self.nPoints):
-            a, b = np.random.uniform(0, 100, size=2)
+            a, b = np.random.uniform(0, 1000, size=2)
             self.points[i, 0] = i
             self.points[i, 1] = a
             self.points[i, 2] = b
