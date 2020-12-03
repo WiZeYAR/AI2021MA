@@ -46,7 +46,7 @@ class TwoOpt:
                 actual_len = new_reward
                 yield new_tsp_sequence, actual_len, 0, False
             else:
-                return new_tsp_sequence, actual_len, 1, True
+                yield new_tsp_sequence, actual_len, 1, True
 
 
 def twoOpt(solution, actual_len, matrix_dist):

@@ -10,7 +10,7 @@ from scipy.spatial.distance import pdist
 
 from DLtosolveTSP.tools.dir_manager import Dir_Manager
 from DLtosolveTSP.generation_data.utils import create_upper_matrix, pixel_in_image, \
-    create_MST, shape_for_h5, from_ind_to_dense, plot_cv, transformation
+     shape_for_h5, from_ind_to_dense, plot_cv, transformation
 
 
 class Generate_Images:
