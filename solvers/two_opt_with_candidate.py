@@ -72,16 +72,16 @@ class TwoOpt_CL:
                     best_case = np.argmin(sol_lens)
                     ind_ = indices[best_case]
                     new_tsp_sequence = TwoOpt_CL.swap2opt(tsp_sequence, ind_[0], ind_[1])
-                    print(tsp_sequence)
-                    print(distance)
-                    print()
+                    # print(tsp_sequence)
+                    # print(distance)
+                    # print()
                     tsp_sequence = np.copy(new_tsp_sequence)
-                    print(ind_)
-                    print(case)
-                    print(tsp_sequence)
+                    # print(ind_)
+                    # print(case)
+                    # print(tsp_sequence)
                     distance = sol_lens[best_case]
-                    print(distance)
-                    print()
+                    # print(distance)
+                    # print()
 
         return tsp_sequence, distance, uncrosses
 
@@ -110,17 +110,17 @@ class TwoOpt_CL:
             new_tsp_sequence, new_reward, uncr_ = TwoOpt_CL.step2opt(new_tsp_sequence, matrix_dist, actual_len, CL, N)
             uncross += uncr_
             if new_reward < actual_len:
-                print(actual_len, new_reward)
+                # print(actual_len, new_reward)
                 actual_len = np.copy(new_reward)
                 yield new_tsp_sequence, actual_len, 0, False
             else:
                 if ite >15:
                     yield new_tsp_sequence, actual_len, 1, True
                 ite += 1
-                print(new_tsp_sequence)
+                # print(new_tsp_sequence)
                 int_ = np.random.randint(1, N)
                 new_tsp_sequence = np.roll(new_tsp_sequence, int_)
-                print(new_tsp_sequence)
+                # print(new_tsp_sequence)
 
 
 def twoOpt_with_cl(solution, actual_len, matrix_dist, CL):
