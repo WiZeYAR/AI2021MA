@@ -105,7 +105,7 @@ class TwoOpt_CL:
         new_tsp_sequence = np.copy(np.array(solution))
         N = len(solution)
         uncross = 0
-        ite = 0
+        # ite = 0
         while True:
             new_tsp_sequence, new_reward, uncr_ = TwoOpt_CL.step2opt(new_tsp_sequence, matrix_dist, actual_len, CL, N)
             uncross += uncr_
@@ -114,12 +114,11 @@ class TwoOpt_CL:
                 actual_len = np.copy(new_reward)
                 yield new_tsp_sequence, actual_len, 0, False
             else:
-                if ite >15:
-                    yield new_tsp_sequence, actual_len, 1, True
-                ite += 1
-                # print(new_tsp_sequence)
-                int_ = np.random.randint(1, N)
-                new_tsp_sequence = np.roll(new_tsp_sequence, int_)
+                yield new_tsp_sequence, actual_len, 1, True
+                # ite += 1
+                # # print(new_tsp_sequence)
+                # int_ = np.random.randint(1, N)
+                # new_tsp_sequence = np.roll(new_tsp_sequence, int_)
                 # print(new_tsp_sequence)
 
 
