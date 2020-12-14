@@ -8,27 +8,72 @@ class TwoOpt_CL:
         seq_length = len(solution)
         tsp_sequence = np.array(solution)
         uncrosses = 0
-        for i in range(1, seq_length):
+        for i in range(1, seq_length-2):
             for j_ in cand_list[i]:
                 j = np.argwhere(tsp_sequence == j_)[0][0]
-                if np.abs(j - i) < 2:
-                    pass
                 el1, el2 = j, i
                 if j < i:
                     el1, el2 = i, j
 
-                jp = el2 + 1
-                if el2 == N- 1:
-                    jp = 0
-                # print(j, j_, N)
-                new_distance = distance + TwoOpt_CL.gain(el1, el2, jp, tsp_sequence, matrix_dist)
+                if el2 == N-1:
+                    break
+                if el1 == 0:
+                    break
+
+                improve = False
+                sol_lens = [10000000 for _ in range(4)]
+                indices = [[] for _ in range(4)]
+                case = 0
+
+
+                new_distance = distance + TwoOpt_CL.gain(el1, el1 + 1, el2, el2 + 1, tsp_sequence, matrix_dist)
                 if new_distance < distance:
+                    improve = True
+                    case = 0
+                    sol_lens[case] = new_distance
+                    indices[case] = [el1 + 1, el2]
+
+                new_distance = distance + TwoOpt_CL.gain(el1 -1, el1, el2, el2 + 1, tsp_sequence, matrix_dist)
+                if new_distance < distance:
+                    improve = True
+                    case = 1
+                    sol_lens[case] = new_distance
+                    indices[case] = [el1, el2]
+
+                new_distance = distance + TwoOpt_CL.gain(el1 - 1, el1, el2 - 1, el2, tsp_sequence, matrix_dist)
+                if new_distance < distance:
+                    improve = True
+                    case = 2
+                    sol_lens[case] = new_distance
+                    indices[case] = [el1, el2 - 1]
+
+                if np.abs(el1 - el2)>= 2 :
+                    new_distance = distance + TwoOpt_CL.gain(el1, el1+1,  el2 -1, el2, tsp_sequence, matrix_dist)
+                    if new_distance < distance:
+                        improve = True
+                        case = 3
+                        sol_lens[case] = new_distance
+                        indices[case] = [el1 + 1, el2 - 1]
+
+                if improve:
                     uncrosses += 1
-                    new_tsp_sequence = TwoOpt_CL.swap2opt(tsp_sequence, el1, jp)
+                    best_case = np.argmin(sol_lens)[0]
+                    ind_ = indices[best_case]
+                    new_tsp_sequence = TwoOpt_CL.swap2opt(tsp_sequence, ind_[0], ind_[1])
                     tsp_sequence = np.copy(new_tsp_sequence)
-                    distance = new_distance
+                    distance = sol_lens[best_case]
+
+
 
         return tsp_sequence, distance, uncrosses
+
+    @staticmethod
+    def gain(i, ip, j, jp, tsp_sequence, matrix_dist):
+        old_link_len = (matrix_dist[tsp_sequence[i], tsp_sequence[ip]] +
+                        matrix_dist[tsp_sequence[j], tsp_sequence[jp]])
+        changed_links_len = (matrix_dist[tsp_sequence[jp], tsp_sequence[i]] +
+                             matrix_dist[tsp_sequence[ip], tsp_sequence[j]])
+        return - old_link_len + changed_links_len
 
     @staticmethod
     def swap2opt(tsp_sequence, i, jp):
@@ -36,13 +81,6 @@ class TwoOpt_CL:
         new_tsp_sequence[i:jp] = np.flip(tsp_sequence[i:jp], axis=0)
         return new_tsp_sequence
 
-    @staticmethod
-    def gain(i, j, jp, tsp_sequence, matrix_dist):
-        old_link_len = (matrix_dist[tsp_sequence[i], tsp_sequence[i - 1]] +
-                        matrix_dist[tsp_sequence[j], tsp_sequence[jp]])
-        changed_links_len = (matrix_dist[tsp_sequence[j], tsp_sequence[i - 1]] +
-                             matrix_dist[tsp_sequence[i], tsp_sequence[jp]])
-        return - old_link_len + changed_links_len
 
     @staticmethod
     def local_search(solution, actual_len,  matrix_dist, CL):
@@ -50,6 +88,7 @@ class TwoOpt_CL:
         N = len(solution)
         uncross = 0
         while True:
+            new_tsp_sequence = np.roll(new_tsp_sequence, np.random.randint(1, N))
             new_tsp_sequence, new_reward, uncr_ = TwoOpt_CL.step2opt(new_tsp_sequence, matrix_dist, actual_len, CL, N)
             uncross += uncr_
             if new_reward < actual_len:
