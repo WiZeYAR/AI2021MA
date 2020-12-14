@@ -114,7 +114,7 @@ class TwoOpt_CL:
                 actual_len = np.copy(new_reward)
                 yield new_tsp_sequence, actual_len, 0, False
             else:
-                if ite >3:
+                if ite >15:
                     yield new_tsp_sequence, actual_len, 1, True
                 ite += 1
 
