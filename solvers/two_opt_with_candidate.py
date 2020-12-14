@@ -111,7 +111,7 @@ class TwoOpt_CL:
             if new_reward < actual_len:
                 print(actual_len, new_reward)
                 actual_len = new_reward
-                #     yield new_tsp_sequence, actual_len, 0, False
+                yield new_tsp_sequence, actual_len, 0, False
             else:
                 if ite >3:
                     yield new_tsp_sequence, actual_len, 1, True
@@ -119,9 +119,7 @@ class TwoOpt_CL:
 
 
 def twoOpt_with_cl(solution, actual_len, matrix_dist, CL):
-    TwoOpt_CL.local_search(solution, actual_len, matrix_dist, CL)
-    # for data in TwoOpt_CL.local_search(solution, actual_len, matrix_dist, CL):
-    #     if data[3]:
-    #         return data[0], data[1]
-    return None
+    for data in TwoOpt_CL.local_search(solution, actual_len, matrix_dist, CL):
+        if data[3]:
+            return data[0], data[1]
 
