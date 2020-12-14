@@ -10,10 +10,10 @@ class TwoOpt_CL:
         uncrosses = 0
         ite = 0
         for i in range(1, seq_length-2):
+            ite += 1
+            if ite > 11:
+                break
             for j_ in cand_list[i]:
-                ite += 1
-                if ite > 11:
-                    break
 
 
                 j = np.argwhere(tsp_sequence == j_)[0][0]
