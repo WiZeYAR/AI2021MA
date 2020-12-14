@@ -108,15 +108,14 @@ class TwoOpt_CL:
             new_tsp_sequence = np.roll(new_tsp_sequence, np.random.randint(1, N))
             new_tsp_sequence, new_reward, uncr_ = TwoOpt_CL.step2opt(new_tsp_sequence, matrix_dist, actual_len, CL, N)
             uncross += uncr_
-            # if new_reward < actual_len:
-            print(actual_len, new_reward)
-            actual_len = new_reward
-            #     yield new_tsp_sequence, actual_len, 0, False
-            # else:
-            #     yield new_tsp_sequence, actual_len, 1, True
-            if ite >3:
-                break
-            ite += 1
+            if new_reward < actual_len:
+                print(actual_len, new_reward)
+                actual_len = new_reward
+                #     yield new_tsp_sequence, actual_len, 0, False
+            else:
+                if ite >3:
+                    yield new_tsp_sequence, actual_len, 1, True
+                ite += 1
 
 
 def twoOpt_with_cl(solution, actual_len, matrix_dist, CL):
