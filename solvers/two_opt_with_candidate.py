@@ -9,9 +9,9 @@ class TwoOpt_CL:
         uncrosses = 0
         ite = 0
         for i in range(1, N-2):
-            ite += 1
-            if ite > 11:
-                break
+            # ite += 1
+            # if ite > 11:
+            #     break
             for j_ in cand_list[i]:
                 el1 = el2 = 0
 
@@ -72,16 +72,16 @@ class TwoOpt_CL:
                     best_case = np.argmin(sol_lens)
                     ind_ = indices[best_case]
                     new_tsp_sequence = TwoOpt_CL.swap2opt(tsp_sequence, ind_[0], ind_[1])
-                    # print(tsp_sequence)
-                    # print(distance)
-                    # print()
+                    print(tsp_sequence)
+                    print(distance)
+                    print()
                     tsp_sequence = np.copy(new_tsp_sequence)
-                    # print(ind_)
-                    # print(case)
-                    # print(tsp_sequence)
+                    print(ind_)
+                    print(case)
+                    print(tsp_sequence)
                     distance = sol_lens[best_case]
-                    # print(distance)
-                    # print()
+                    print(distance)
+                    print()
 
         return tsp_sequence, distance, uncrosses
 
@@ -96,7 +96,7 @@ class TwoOpt_CL:
     @staticmethod
     def swap2opt(tsp_sequence, i, j):
         new_tsp_sequence = np.copy(tsp_sequence)
-        new_tsp_sequence[i:j -1] = np.flip(tsp_sequence[i:j - 1], axis=0)
+        new_tsp_sequence[i:j-1] = np.flip(tsp_sequence[i:j-1], axis=0)
         return new_tsp_sequence
 
 
@@ -117,7 +117,10 @@ class TwoOpt_CL:
                 if ite >15:
                     yield new_tsp_sequence, actual_len, 1, True
                 ite += 1
-                new_tsp_sequence = np.roll(new_tsp_sequence, np.random.randint(1, N))
+                print(new_tsp_sequence)
+                int_ = np.random.randint(1, N)
+                new_tsp_sequence = np.roll(new_tsp_sequence, int_)
+                print(new_tsp_sequence)
 
 
 def twoOpt_with_cl(solution, actual_len, matrix_dist, CL):
