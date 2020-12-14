@@ -110,6 +110,7 @@ class TwoOpt_CL:
                 print(actual_len, new_reward)
                 actual_len = new_reward
                 yield new_tsp_sequence, actual_len, 0, False
+                break
             else:
                 yield new_tsp_sequence, actual_len, 1, True
 
