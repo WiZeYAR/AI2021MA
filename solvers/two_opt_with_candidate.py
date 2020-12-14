@@ -10,7 +10,7 @@ class TwoOpt_CL:
         uncrosses = 0
         for i in range(1, seq_length):
             for j_ in cand_list[i]:
-                j = np.argwhere(tsp_sequence == j_)
+                j = np.argwhere(tsp_sequence == j_)[0]
                 if j==N:
                     j = 0
                 new_distance = distance + TwoOpt_CL.gain(i - 1, j, tsp_sequence, matrix_dist)
