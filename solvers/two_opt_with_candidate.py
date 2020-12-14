@@ -52,7 +52,7 @@ class TwoOpt_CL:
 
 
 
-def twoOpt(solution, actual_len, matrix_dist, CL):
+def twoOpt_with_cl(solution, actual_len, matrix_dist, CL):
     for data in TwoOpt_CL.local_search(solution, actual_len, matrix_dist, CL):
         if data[3]:
             return data[0], data[1]
