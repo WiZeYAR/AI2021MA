@@ -1,5 +1,5 @@
 import numpy as np
-
+from tqdm import tqdm
 
 
 class TwoOpt_CL:
@@ -9,7 +9,7 @@ class TwoOpt_CL:
         seq_length = len(solution)
         tsp_sequence = np.array(solution)
         uncrosses = 0
-        for i in range(1, seq_length):
+        for i in tqdm(range(1, seq_length)):
             for j in cand_list[i]:
                 new_distance = distance + TwoOpt_CL.gain(i - 1, j, tsp_sequence, matrix_dist, N)
                 if new_distance < distance:
