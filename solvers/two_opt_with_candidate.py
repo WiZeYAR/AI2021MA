@@ -117,8 +117,7 @@ class TwoOpt_CL:
                 if ite >15:
                     yield new_tsp_sequence, actual_len, 1, True
                 ite += 1
-
-            new_tsp_sequence = np.roll(new_tsp_sequence, np.random.randint(1, N))
+                new_tsp_sequence = np.roll(new_tsp_sequence, np.random.randint(1, N))
 
 
 def twoOpt_with_cl(solution, actual_len, matrix_dist, CL):
