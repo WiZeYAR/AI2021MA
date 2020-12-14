@@ -63,8 +63,6 @@ class TwoOpt_CL:
                     tsp_sequence = np.copy(new_tsp_sequence)
                     distance = sol_lens[best_case]
 
-
-
         return tsp_sequence, distance, uncrosses
 
     @staticmethod
@@ -76,9 +74,9 @@ class TwoOpt_CL:
         return - old_link_len + changed_links_len
 
     @staticmethod
-    def swap2opt(tsp_sequence, i, jp):
+    def swap2opt(tsp_sequence, i, j):
         new_tsp_sequence = np.copy(tsp_sequence)
-        new_tsp_sequence[i:jp] = np.flip(tsp_sequence[i:jp], axis=0)
+        new_tsp_sequence[i:j + 1] = np.flip(tsp_sequence[i:j + 1], axis=0)
         return new_tsp_sequence
 
 
