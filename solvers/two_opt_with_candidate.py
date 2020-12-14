@@ -96,7 +96,7 @@ class TwoOpt_CL:
     @staticmethod
     def swap2opt(tsp_sequence, i, j):
         new_tsp_sequence = np.copy(tsp_sequence)
-        new_tsp_sequence[i:j] = np.flip(tsp_sequence[i:j], axis=0)
+        new_tsp_sequence[i:j -1] = np.flip(tsp_sequence[i:j - 1], axis=0)
         return new_tsp_sequence
 
 
