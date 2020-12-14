@@ -11,30 +11,34 @@ class TwoOpt_CL:
         for i in range(1, seq_length):
             for j_ in cand_list[i]:
                 j = np.argwhere(tsp_sequence == j_)[0][0]
+                jp = j + 1
+                if j == N- 1:
+                    jp = 0
                 # print(j, j_, N)
-                new_distance = distance + TwoOpt_CL.gain(i - 1, j, tsp_sequence, matrix_dist, N)
+                new_distance = distance + TwoOpt_CL.gain(i - 1, j, jp, tsp_sequence, matrix_dist)
                 if new_distance < distance:
                     uncrosses += 1
-                    new_tsp_sequence = TwoOpt_CL.swap2opt(tsp_sequence, i - 1, j, N)
+                    new_tsp_sequence = TwoOpt_CL.swap2opt(tsp_sequence, i - 1, jp)
                     tsp_sequence = np.copy(new_tsp_sequence)
                     distance = new_distance
 
         return tsp_sequence, distance, uncrosses
 
     @staticmethod
-    def swap2opt(tsp_sequence, i, j, N):
+    def swap2opt(tsp_sequence, i, jp):
         new_tsp_sequence = np.copy(tsp_sequence)
-        final_index = j+1 - N
-        # print(final_index, i)
-        new_tsp_sequence[i:final_index] = np.flip(tsp_sequence[i:final_index], axis=0)
+        if jp > i:
+            new_tsp_sequence[i:jp] = np.flip(tsp_sequence[i:jp], axis=0)
+        else:
+            new_tsp_sequence[jp:i] = np.flip(tsp_sequence[jp:i], axis=0)
         return new_tsp_sequence
 
     @staticmethod
-    def gain(i, j, tsp_sequence, matrix_dist, N):
+    def gain(i, j, jp, tsp_sequence, matrix_dist):
         old_link_len = (matrix_dist[tsp_sequence[i], tsp_sequence[i - 1]] +
-                        matrix_dist[tsp_sequence[j], tsp_sequence[j + 1 - N]])
+                        matrix_dist[tsp_sequence[j], tsp_sequence[jp]])
         changed_links_len = (matrix_dist[tsp_sequence[j], tsp_sequence[i - 1]] +
-                             matrix_dist[tsp_sequence[i], tsp_sequence[j + 1 - N]])
+                             matrix_dist[tsp_sequence[i], tsp_sequence[jp]])
         return - old_link_len + changed_links_len
 
     @staticmethod
