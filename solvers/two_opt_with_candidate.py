@@ -63,8 +63,16 @@ class TwoOpt_CL:
                     best_case = np.argmin(sol_lens)
                     ind_ = indices[best_case]
                     new_tsp_sequence = TwoOpt_CL.swap2opt(tsp_sequence, ind_[0], ind_[1])
+                    print(tsp_sequence)
+                    print(distance)
+                    print()
                     tsp_sequence = np.copy(new_tsp_sequence)
+                    print(ind_)
+                    print(case)
+                    print(tsp_sequence)
                     distance = sol_lens[best_case]
+                    print(distance)
+                    print()
 
         return tsp_sequence, distance, uncrosses
 
