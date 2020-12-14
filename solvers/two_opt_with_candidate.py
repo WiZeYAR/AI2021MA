@@ -49,7 +49,6 @@ class TwoOpt_CL:
                 yield new_tsp_sequence, actual_len, 1, True
 
 
-
 def twoOpt_with_cl(solution, actual_len, matrix_dist, CL):
     for data in TwoOpt_CL.local_search(solution, actual_len, matrix_dist, CL):
         if data[3]:
