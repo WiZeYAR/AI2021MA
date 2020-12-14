@@ -22,7 +22,8 @@ class TwoOpt_CL:
                     el1, el2 = i, j
                 elif j < i:
                     el1, el2 = j, i
-                else:
+
+                if np.abs(el1 - el2) < 2:
                     break
                 if el2 == N-1:
                     break
