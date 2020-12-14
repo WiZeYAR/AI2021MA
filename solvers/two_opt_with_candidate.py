@@ -14,7 +14,7 @@ class TwoOpt_CL:
             if ite > 11:
                 break
             for j_ in cand_list[i]:
-
+                el1 = el2 = 0
 
                 j = np.argwhere(tsp_sequence == j_)[0][0]
 
