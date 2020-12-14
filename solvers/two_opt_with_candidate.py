@@ -11,10 +11,10 @@ class TwoOpt_CL:
         uncrosses = 0
         for i in range(1, seq_length):
             for j in cand_list[i]:
-                new_tsp_sequence = TwoOpt_CL.swap2opt(tsp_sequence, i - 1, j, N)
                 new_distance = distance + TwoOpt_CL.gain(i - 1, j, tsp_sequence, matrix_dist, N)
                 if new_distance < distance:
                     uncrosses += 1
+                    new_tsp_sequence = TwoOpt_CL.swap2opt(tsp_sequence, i - 1, j, N)
                     tsp_sequence = np.copy(new_tsp_sequence)
                     distance = new_distance
 
