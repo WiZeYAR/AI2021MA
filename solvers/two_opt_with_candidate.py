@@ -10,8 +10,8 @@ class TwoOpt_CL:
         uncrosses = 0
         for i in range(1, seq_length):
             for j_ in cand_list[i]:
-                j = np.argwhere(tsp_sequence == j_)[0]
-                print(j, j_)
+                j = np.argwhere(tsp_sequence == j_)[0][0]
+                print(j, j_, N)
                 if j==N:
                     j = 0
                 new_distance = distance + TwoOpt_CL.gain(i - 1, j, tsp_sequence, matrix_dist)
@@ -27,6 +27,7 @@ class TwoOpt_CL:
     def swap2opt(tsp_sequence, i, j):
         new_tsp_sequence = np.copy(tsp_sequence)
         final_index = j+1
+        print(final_index)
         new_tsp_sequence[i:final_index] = np.flip(tsp_sequence[i:final_index], axis=0)
         return new_tsp_sequence
 
