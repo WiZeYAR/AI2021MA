@@ -30,7 +30,7 @@ class TwoOpt_CL:
         if jp > i:
             new_tsp_sequence[i:jp] = np.flip(tsp_sequence[i:jp], axis=0)
         else:
-            new_tsp_sequence[jp:i] = np.flip(tsp_sequence[jp:i], axis=0)
+            new_tsp_sequence[jp-1:i+1] = np.flip(tsp_sequence[jp-1:i+1], axis=0)
         return new_tsp_sequence
 
     @staticmethod
