@@ -11,14 +11,16 @@ class TwoOpt_CL:
         for i in range(1, seq_length-2):
             for j_ in cand_list[i]:
                 j = np.argwhere(tsp_sequence == j_)[0][0]
-                el1, el2 = j, i
-                if j < i:
+                if j > i:
                     el1, el2 = i, j
+                else:
+                    el1, el2 = j, i
 
-                if el2 == N-1:
+                if el2 >= N-1:
                     break
                 if el1 == 0:
                     break
+
 
                 improve = False
                 sol_lens = [10000000 for _ in range(4)]
