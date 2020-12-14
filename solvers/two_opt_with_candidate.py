@@ -57,7 +57,7 @@ class TwoOpt_CL:
 
                 if improve:
                     uncrosses += 1
-                    best_case = np.argmin(sol_lens)[0]
+                    best_case = np.argmin(sol_lens)
                     ind_ = indices[best_case]
                     new_tsp_sequence = TwoOpt_CL.swap2opt(tsp_sequence, ind_[0], ind_[1])
                     tsp_sequence = np.copy(new_tsp_sequence)
