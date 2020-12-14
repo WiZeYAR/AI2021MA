@@ -10,7 +10,7 @@ class TwoOpt_CL:
         tsp_sequence = np.array(solution)
         uncrosses = 0
         for i in tqdm(range(1, seq_length)):
-            for j in cand_list[i]:
+            for j in cand_list[i][:5]:
                 new_distance = distance + TwoOpt_CL.gain(i - 1, j, tsp_sequence, matrix_dist, N)
                 if new_distance < distance:
                     uncrosses += 1
@@ -44,6 +44,7 @@ class TwoOpt_CL:
             new_tsp_sequence, new_reward, uncr_ = TwoOpt_CL.step2opt(new_tsp_sequence, matrix_dist, actual_len, CL, N)
             uncross += uncr_
             if new_reward < actual_len:
+                print(actual_len, new_reward)
                 actual_len = new_reward
                 yield new_tsp_sequence, actual_len, 0, False
             else:
