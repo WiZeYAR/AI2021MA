@@ -5,11 +5,10 @@ class TwoOpt_CL:
 
     @staticmethod
     def step2opt(solution, matrix_dist, distance, cand_list, N):
-        seq_length = len(solution)
         tsp_sequence = np.array(solution)
         uncrosses = 0
         ite = 0
-        for i in range(1, seq_length-2):
+        for i in range(1, N-2):
             ite += 1
             if ite > 11:
                 break
@@ -108,17 +107,18 @@ class TwoOpt_CL:
             new_tsp_sequence = np.roll(new_tsp_sequence, np.random.randint(1, N))
             new_tsp_sequence, new_reward, uncr_ = TwoOpt_CL.step2opt(new_tsp_sequence, matrix_dist, actual_len, CL, N)
             uncross += uncr_
-            if new_reward < actual_len:
-                print(actual_len, new_reward)
-                actual_len = new_reward
-                yield new_tsp_sequence, actual_len, 0, False
-                break
-            else:
-                yield new_tsp_sequence, actual_len, 1, True
+            # if new_reward < actual_len:
+            print(actual_len, new_reward)
+            actual_len = new_reward
+            #     yield new_tsp_sequence, actual_len, 0, False
+            # else:
+            #     yield new_tsp_sequence, actual_len, 1, True
+            break
 
 
 def twoOpt_with_cl(solution, actual_len, matrix_dist, CL):
-    for data in TwoOpt_CL.local_search(solution, actual_len, matrix_dist, CL):
-        if data[3]:
-            return data[0], data[1]
+    TwoOpt_CL.local_search(solution, actual_len, matrix_dist, CL)
+    # for data in TwoOpt_CL.local_search(solution, actual_len, matrix_dist, CL):
+    #     if data[3]:
+    #         return data[0], data[1]
 
