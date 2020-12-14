@@ -20,9 +20,10 @@ class TwoOpt_CL:
 
                 if j > i:
                     el1, el2 = i, j
-                else:
+                elif j < i:
                     el1, el2 = j, i
-
+                else:
+                    break
                 if el2 == N-1:
                     break
                 if el1 == 0:
