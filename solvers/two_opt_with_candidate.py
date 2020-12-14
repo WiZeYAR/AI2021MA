@@ -21,9 +21,9 @@ class TwoOpt_CL:
                     el1, el2 = i, j
                 elif j < i:
                     el1, el2 = j, i
+                elif j == i:
+                    el1, el2 = j, i
 
-                if np.abs(el1 - el2) < 2:
-                    break
                 if el2 == N-1:
                     break
                 if el1 == 0:
@@ -35,35 +35,37 @@ class TwoOpt_CL:
                 indices = [[] for _ in range(4)]
                 case = 0
 
+                if np.abs(el1 - el2) >= 1:
+                    new_distance = distance + TwoOpt_CL.gain(el1, el1 + 1, el2, el2 + 1, tsp_sequence, matrix_dist)
+                    if new_distance < distance:
+                        improve = True
+                        case = 0
+                        sol_lens[case] = new_distance
+                        indices[case] = [el1 + 1, el2]
 
-                new_distance = distance + TwoOpt_CL.gain(el1, el1 + 1, el2, el2 + 1, tsp_sequence, matrix_dist)
-                if new_distance < distance:
-                    improve = True
-                    case = 0
-                    sol_lens[case] = new_distance
-                    indices[case] = [el1 + 1, el2]
+                if np.abs(el1 - el2) >= 0:
+                    new_distance = distance + TwoOpt_CL.gain(el1 -1, el1, el2, el2 + 1, tsp_sequence, matrix_dist)
+                    if new_distance < distance:
+                        improve = True
+                        case = 1
+                        sol_lens[case] = new_distance
+                        indices[case] = [el1, el2]
 
-                new_distance = distance + TwoOpt_CL.gain(el1 -1, el1, el2, el2 + 1, tsp_sequence, matrix_dist)
-                if new_distance < distance:
-                    improve = True
-                    case = 1
-                    sol_lens[case] = new_distance
-                    indices[case] = [el1, el2]
+                if np.abs(el1 - el2) >= 1:
+                    new_distance = distance + TwoOpt_CL.gain(el1 - 1, el1, el2 - 1, el2, tsp_sequence, matrix_dist)
+                    if new_distance < distance:
+                        improve = True
+                        case = 2
+                        sol_lens[case] = new_distance
+                        indices[case] = [el1, el2 - 1]
 
-                new_distance = distance + TwoOpt_CL.gain(el1 - 1, el1, el2 - 1, el2, tsp_sequence, matrix_dist)
-                if new_distance < distance:
-                    improve = True
-                    case = 2
-                    sol_lens[case] = new_distance
-                    indices[case] = [el1, el2 - 1]
-
-
-                new_distance = distance + TwoOpt_CL.gain(el1, el1+1,  el2 -1, el2, tsp_sequence, matrix_dist)
-                if new_distance < distance:
-                    improve = True
-                    case = 3
-                    sol_lens[case] = new_distance
-                    indices[case] = [el1 + 1, el2 - 1]
+                if np.abs(el1 - el2) >= 2:
+                    new_distance = distance + TwoOpt_CL.gain(el1, el1+1,  el2 -1, el2, tsp_sequence, matrix_dist)
+                    if new_distance < distance:
+                        improve = True
+                        case = 3
+                        sol_lens[case] = new_distance
+                        indices[case] = [el1 + 1, el2 - 1]
 
                 if improve:
                     uncrosses += 1
@@ -105,7 +107,6 @@ class TwoOpt_CL:
         uncross = 0
         ite = 0
         while True:
-            new_tsp_sequence = np.roll(new_tsp_sequence, np.random.randint(1, N))
             new_tsp_sequence, new_reward, uncr_ = TwoOpt_CL.step2opt(new_tsp_sequence, matrix_dist, actual_len, CL, N)
             uncross += uncr_
             if new_reward < actual_len:
@@ -116,6 +117,8 @@ class TwoOpt_CL:
                 if ite >3:
                     yield new_tsp_sequence, actual_len, 1, True
                 ite += 1
+
+            new_tsp_sequence = np.roll(new_tsp_sequence, np.random.randint(1, N))
 
 
 def twoOpt_with_cl(solution, actual_len, matrix_dist, CL):
