@@ -11,12 +11,13 @@ class TwoOpt_CL:
         for i in range(1, seq_length-2):
             for j_ in cand_list[i]:
                 j = np.argwhere(tsp_sequence == j_)[0][0]
+
                 if j > i:
                     el1, el2 = i, j
                 else:
                     el1, el2 = j, i
 
-                if el2 >= N-1:
+                if el2 == N-1:
                     break
                 if el1 == 0:
                     break
@@ -49,13 +50,13 @@ class TwoOpt_CL:
                     sol_lens[case] = new_distance
                     indices[case] = [el1, el2 - 1]
 
-                if np.abs(el1 - el2)>= 2 :
-                    new_distance = distance + TwoOpt_CL.gain(el1, el1+1,  el2 -1, el2, tsp_sequence, matrix_dist)
-                    if new_distance < distance:
-                        improve = True
-                        case = 3
-                        sol_lens[case] = new_distance
-                        indices[case] = [el1 + 1, el2 - 1]
+
+                new_distance = distance + TwoOpt_CL.gain(el1, el1+1,  el2 -1, el2, tsp_sequence, matrix_dist)
+                if new_distance < distance:
+                    improve = True
+                    case = 3
+                    sol_lens[case] = new_distance
+                    indices[case] = [el1 + 1, el2 - 1]
 
                 if improve:
                     uncrosses += 1
@@ -71,8 +72,8 @@ class TwoOpt_CL:
     def gain(i, ip, j, jp, tsp_sequence, matrix_dist):
         old_link_len = (matrix_dist[tsp_sequence[i], tsp_sequence[ip]] +
                         matrix_dist[tsp_sequence[j], tsp_sequence[jp]])
-        changed_links_len = (matrix_dist[tsp_sequence[jp], tsp_sequence[i]] +
-                             matrix_dist[tsp_sequence[ip], tsp_sequence[j]])
+        changed_links_len = (matrix_dist[tsp_sequence[jp], tsp_sequence[ip]] +
+                             matrix_dist[tsp_sequence[j], tsp_sequence[i]])
         return - old_link_len + changed_links_len
 
     @staticmethod
