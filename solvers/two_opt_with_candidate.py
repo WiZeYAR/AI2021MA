@@ -27,7 +27,7 @@ class TwoOpt_CL:
     def swap2opt(tsp_sequence, i, j):
         new_tsp_sequence = np.copy(tsp_sequence)
         final_index = j+1
-        print(final_index)
+        print(final_index, i)
         new_tsp_sequence[i:final_index] = np.flip(tsp_sequence[i:final_index], axis=0)
         return new_tsp_sequence
 
