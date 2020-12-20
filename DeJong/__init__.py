@@ -22,7 +22,7 @@ a = np.stack([a_up, a_down])
 def DJ5(x):
     d = 0.002
     for i in range(25):
-        d += 1/(i + (x[0]- a[0][i])**6 + (x[1]- a[1][i])**6)
+        d += 1/(i + 1 + (x[0]- a[0][i])**6 + (x[1]- a[1][i])**6)
     return 1/d
 
 
