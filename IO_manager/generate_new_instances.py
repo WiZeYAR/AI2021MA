@@ -1,8 +1,9 @@
 from concorde.tsp import TSPSolver
-from IO_manager.io_tsp import  TSP_Instance_Creator
+from IO_manager.io_tsp import TSP_Instance_Creator
+
 
 def generate_instance():
-    for dim in [10, 20 , 30]:
+    for dim in [10, 20, 30]:
         ic = TSP_Instance_Creator('random', seed=123, dimension=dim)
         solver = TSPSolver.from_data(ic.points[:, 1], ic.points[:, 2], norm="EUC_2D")
         solution = solver.solve()
@@ -22,7 +23,7 @@ def save_new_tsplib(name, pos, sol):
     file_object.write(f"BEST_KNOWN : {int(best_sol)}\n")
     file_object.write("NODE_COORD_SECTION\n")
     for i, p in enumerate(optimal_sol):
-        file_object.write(f"{i+1} {pos[p, 1]} {pos[p, 2]}\n")
+        file_object.write(f"{i + 1} {pos[p, 1]} {pos[p, 2]}\n")
 
     file_object.write(f"EOF")
     file_object.close()

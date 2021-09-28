@@ -6,8 +6,8 @@ if 'AI' in os.getcwd():
     from solvers.constructive_algorithms import *
     from solvers.local_search import *
 else:
-    from AI2020.solvers.constructive_algorithms import *
-    from AI2020.solvers.local_search import *
+    from AI2021.solvers.constructive_algorithms import *
+    from AI2021.solvers.local_search import *
 
 
 class Solver_TSP:
