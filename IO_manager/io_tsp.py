@@ -40,6 +40,7 @@ class TSP_Instance_Creator:
         file_object = open(f"{folder}{name_tsp}")
         data = file_object.read()
         file_object.close()
+        print(folder)
         self.lines = data.splitlines()
 
         # store data set information
