@@ -88,9 +88,7 @@ def run_trial_TSP():
                 solver.bind((improve, improve_functions[j]))
                 for name in names_instances:
                     instance = TSP_Instance_Creator("standard", name)
-                    print(solver)
                     solver(instance)
-                    print('andato')
                     index.append((name, instance.best_sol, solver.name_method, s_))
                     results.append([solver.found_length, solver.gap, solver.time_to_solve, solver.ls_calls])
                     samples[name][improve] = np.round(np.abs(np.array(collectors[j]) - ic.best_sol) / ic.best_sol * 100,
