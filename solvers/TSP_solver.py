@@ -2,6 +2,7 @@ from numpy.core._multiarray_umath import ndarray
 import os
 from time import time as t
 import matplotlib.pyplot as plt
+
 if 'AI' in os.getcwd():
     from solvers.constructive_algorithms import *
     from solvers.local_search import *
@@ -11,7 +12,6 @@ else:
 
 
 class Solver_TSP:
-
     solution: ndarray
     found_length: float
     available_initializers = {"random": Random_Initializer.random_method,
@@ -23,8 +23,6 @@ class Solver_TSP:
     available_improvements = {"2-opt": TwoOpt.local_search,
                               "2.5-opt": TwoDotFiveOpt.local_search}
 
-
-
     def __init__(self, initializer, seed_=0, stop_run_after=180):
         self.initializer = initializer[0]
         self.methods_name = [initializer[0]]
@@ -33,7 +31,6 @@ class Solver_TSP:
         self.solved = False
         self.seed = seed_
         self.max_time = stop_run_after
-
 
     def bind(self, local_or_meta):
         self.methods.append(local_or_meta[1])
@@ -44,7 +41,6 @@ class Solver_TSP:
         self.methods.pop()
         self.name_method = self.name_method[::-1][self.name_method[::-1].find("improved"[::-1]) + len("improved") + 2:][
                            ::-1]
-
 
     def __call__(self, instance_, verbose=False, return_value=False):
         self.instance = instance_
@@ -64,7 +60,7 @@ class Solver_TSP:
                     break
             self.ls_calls += ls
         end = t()
-        self.time_to_solve = np.around(end - start,3)
+        self.time_to_solve = np.around(end - start, 3)
         self.solved = True
         self._gap()
         if verbose:
