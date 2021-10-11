@@ -14,10 +14,10 @@ class Solver_TSP:
 
     solution: ndarray
     found_length: float
-    available_initializers = {"random": random_initializer.random_method,
-                              "nearest_neighbors": nearest_neighbor.nn,
+    available_initializers = {"random": Random_Initializer.random_method,
+                              "nearest_neighbors": Nearest_Neighbor.nn,
                               # "best_nn": nearest_neighbor.best_nn,
-                              "multi_fragment": multi_fragment.mf
+                              "multi_fragment": Multi_Fragment.mf
                               }
 
     available_improvements = {"2-opt": TwoOpt.local_search,

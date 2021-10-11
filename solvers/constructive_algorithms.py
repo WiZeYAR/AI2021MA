@@ -1,6 +1,7 @@
 import numpy as np
 
-class random_initializer:
+
+class Random_Initializer:
     @staticmethod
     def random_method(dist_matrix):
         n = int(dist_matrix.shape[0])
@@ -8,7 +9,7 @@ class random_initializer:
         return solution, compute_lenght(solution, dist_matrix)
 
 
-class nearest_neighbor:
+class Nearest_Neighbor:
     @staticmethod
     def nn(dist_matrix, starting_node=0):
         dist_matrix = np.copy(dist_matrix)
@@ -27,7 +28,7 @@ class nearest_neighbor:
     def best_nn(dist_matrix):
         solutions, lens = [], []
         for start in range(dist_matrix.shape[0]):
-            new_solution = nearest_neighbor.nn(dist_matrix, starting_node=start)
+            new_solution = Nearest_Neighbor.nn(dist_matrix, starting_node=start)
             solutions.append(new_solution)
             lens.append(compute_lenght(new_solution, dist_matrix))
 
@@ -35,7 +36,7 @@ class nearest_neighbor:
         return solution
 
 
-class multi_fragment:
+class Multi_Fragment:
 
     @staticmethod
     def check_if_available(n1, n2, sol):
@@ -113,9 +114,9 @@ class multi_fragment:
         for el in np.argsort(mat.flatten()):
             node1, node2 = el // num_cit, el % num_cit
             possible_edge = [node1, node2]
-            if multi_fragment.check_if_available(node1, node2,
+            if Multi_Fragment.check_if_available(node1, node2,
                                                  solution):
-                if multi_fragment.check_if_not_close(possible_edge, solution):
+                if Multi_Fragment.check_if_not_close(possible_edge, solution):
                     # print("entrato", inside)
                     solution[str(node1)].append(node2)
                     solution[str(node2)].append(node1)
@@ -128,7 +129,7 @@ class multi_fragment:
                     if inside == num_cit - 1:
                         # print(f"ricostruire la solutione da {start_list}",
                         #       f"vicini di questi due nodi {[solution[str(i)] for i in start_list]}")
-                        solution = multi_fragment.create_solution(start_list, solution, num_cit)
+                        solution = Multi_Fragment.create_solution(start_list, solution, num_cit)
                         return solution, compute_lenght(solution, dist_matrix)
 
 
@@ -141,6 +142,7 @@ def compute_lenght(solution, dist_matrix):
         from_node = node
     total_length += dist_matrix[from_node, starting_node]
     return total_length
+
 
 def nn(dist_matrix, starting_node=0):
     dist_matrix = np.copy(dist_matrix)
