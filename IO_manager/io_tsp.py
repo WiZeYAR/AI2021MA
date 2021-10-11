@@ -16,9 +16,9 @@ class TSP_Instance_Creator:
     points: ndarray
 
     def __init__(self, mode, name_problem=False, seed=1, dimension=False):
-        self.problems = ['att532.tsp', 'fl1577.tsp','pr439.tsp','ch130.tsp','rat783.tsp',
-                         'd198.tsp', 'kroA100.tsp','u1060.tsp','lin318.tsp',
-                         'eil76.tsp','pcb442.tsp']
+        self.problems = ['att532.tsp', 'fl1577.tsp', 'pr439.tsp', 'ch130.tsp', 'rat783.tsp',
+                         'd198.tsp', 'kroA100.tsp', 'u1060.tsp', 'lin318.tsp',
+                         'eil76.tsp', 'pcb442.tsp']
 
         if mode == 'random':
             self.seed = seed
@@ -32,14 +32,11 @@ class TSP_Instance_Creator:
             self.read_instance(name_problem)
             self.print_best = f'best_sol: {self.best_sol}'
 
-
-
-
     def read_instance(self, name_tsp):
         # read raw data
         folder = "problems/TSP/"
         if "AI" not in os.getcwd():
-            folder = "AI2020/problems/TSP/"
+            folder = "AI2021MA/problems/TSP/"
         file_object = open(f"{folder}{name_tsp}")
         data = file_object.read()
         file_object.close()
@@ -95,7 +92,7 @@ class TSP_Instance_Creator:
             for i, txt in enumerate(np.arange(self.nPoints)):  # tour_found[:-1]
                 plt.annotate(txt, (self.points[i, 1], self.points[i, 2]))
 
-            for i,j in zip(self.optimal_tour[:-1], self.optimal_tour[1:]):
+            for i, j in zip(self.optimal_tour[:-1], self.optimal_tour[1:]):
                 plt.plot([self.points[i, 1], self.points[j, 1]],
                          [self.points[i, 2], self.points[j, 2]], 'b-')
             plt.plot([self.points[self.optimal_tour[0], 1], self.points[self.optimal_tour[-1], 1]],
@@ -131,7 +128,6 @@ class TSP_Instance_Creator:
         self.exist_opt = False
         self.LB = np.sum(create_MST(self.dist_matrix))
         return
-
 
 
 def create_MST(dist_tensor):
