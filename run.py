@@ -69,12 +69,12 @@ def run_trial_TSP():
     # print(ic.dist_matrix)
 
     seeds = [0, 123, 333]
-    time_to_solve = 180  # in seconds
+    time_to_solve = 10  # in seconds
 
     names_instances = ["d198.tsp"]  # , "pr439.tsp", "u1060.tsp"
     samples = {name: {} for name in names_instances}
-    two_opt_results = []
-    collectors = [two_opt_results]
+    two_opt_results, ils_results = [], []
+    collectors = [two_opt_results, ils_results]
     initializers = ["random"]
     init_functions = [Random_Initializer.random_method]
     improvements = ["2 opt", "ILS better"]

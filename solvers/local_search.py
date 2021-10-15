@@ -1,5 +1,6 @@
 import numpy as np
 
+
 class TwoOpt:
 
     @staticmethod
@@ -8,7 +9,7 @@ class TwoOpt:
         tsp_sequence = np.array(solution)
         uncrosses = 0
         for i in range(1, seq_length - 2):
-            for j in range(i , seq_length - 2):
+            for j in range(i, seq_length - 2):
                 new_distance = distance + TwoOpt.gain(i - 1, j, tsp_sequence, matrix_dist)
                 if new_distance < distance:
                     uncrosses += 1
@@ -22,7 +23,7 @@ class TwoOpt:
     @staticmethod
     def swap2opt(tsp_sequence, i, j):
         new_tsp_sequence = np.copy(tsp_sequence)
-        final_index = j + 1 #if j+1 < len(tsp_sequence) else -1
+        final_index = j + 1  # if j+1 < len(tsp_sequence) else -1
         new_tsp_sequence[i:final_index] = np.flip(tsp_sequence[i:final_index], axis=0)  # flip or swap ?
         return new_tsp_sequence
 
@@ -35,7 +36,7 @@ class TwoOpt:
         return - old_link_len + changed_links_len
 
     @staticmethod
-    def local_search(solution, actual_len,  matrix_dist):
+    def local_search(solution, actual_len, matrix_dist):
         new_tsp_sequence = np.copy(np.array(solution))
         uncross = 0
         while True:
@@ -48,14 +49,10 @@ class TwoOpt:
                 return new_tsp_sequence, actual_len, 1, True
 
 
-
-
-
 def twoOpt(solution, actual_len, matrix_dist):
     for data in TwoOpt.local_search(solution, actual_len, matrix_dist):
         if data[3]:
             return data[0], data[1]
-
 
 
 class TwoDotFiveOpt:
@@ -133,7 +130,6 @@ class TwoDotFiveOpt:
                 return new_tsp_sequence, new_len, 1, True
 
 
-
 def compute_lenght(solution, dist_matrix):
     total_length = 0
     starting_node = solution[0]
@@ -143,4 +139,3 @@ def compute_lenght(solution, dist_matrix):
         from_node = node
     total_length += dist_matrix[from_node, starting_node]
     return total_length
-
